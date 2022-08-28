@@ -1,10 +1,9 @@
 const theme = {
-  black: '#000000',
-  white: '#FFFFFF',
-  lightGrey: '#B0B0B0',
-  middleGrey: '#717171',
-  deepGrey: '#222222',
-  hoverGrey: '#DBDBDB',
+  black: "#000000",
+  white: "#FFFFFF",
+  sideColor: "#EDEDED",
+  mainColor: "#3B55E6",
+  footerColor: "#3B3B3B",
 };
 
 export default theme;

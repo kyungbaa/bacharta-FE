@@ -1,11 +1,7 @@
-import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-<<<<<<< HEAD
-import Main from './components/pages/Main/Main';
-=======
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import Main from './pages/Main/Main';
->>>>>>> main
+import Main from "./components/pages/Main/Main";
 
 const Router = () => {
   return (
