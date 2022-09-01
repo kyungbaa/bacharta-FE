@@ -3,10 +3,12 @@ import styled from "styled-components";
 import CharContainer from "./ChartContainer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TodayChartBox from "./TodayChartBox";
+import Nav from "../../Nav/Nav";
 
 const Main = () => {
   return (
     <>
+      <Nav></Nav>
       <MainContainer>
         <MainBorder>
           <MainBox>
