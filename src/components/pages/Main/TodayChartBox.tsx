@@ -1,57 +1,63 @@
-import React from "react";
 import styled from "styled-components";
+import { Line } from "react-chartjs-2";
+
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
   PointElement,
   LineElement,
+  Title,
   Tooltip,
+  Legend,
 } from "chart.js";
-import { Line } from "react-chartjs-2";
-import type { ChartData, ChartOptions } from "chart.js";
+import { ExchageProps } from "./MainTypes";
+import { lineOptions, lineData } from "./ChartData/ChartData";
 
 ChartJS.register(
   CategoryScale,
   LinearScale,
   PointElement,
   LineElement,
-  Tooltip
+  Title,
+  Tooltip,
+  Legend
 );
-const lineChartData = {
-  labels: ["October", "November", "December"],
-  datasets: [
-    {
-      data: [8137119, 9431691, 10266674],
-      label: "Infected",
-      borderColor: "#3333ff",
-      fill: true,
-      lineTension: 0.5,
-    },
-    {
-      data: [1216410, 1371390, 1477380],
-      label: "Deaths",
-      borderColor: "#ff3333",
-      backgroundColor: "rgba(255, 0, 0, 0.5)",
-      fill: true,
-      lineTension: 0.5,
-    },
-  ],
-};
 
-interface LineProps {
-  type: string;
-  options: ChartOptions<"line">;
-  data: ChartData<"line">;
-}
-
-const TodayChartBox = () => {
+const TodayChartBox = ({ exchangeData }: { exchangeData: ExchageProps[] }) => {
   return (
     <>
       <ChartContainer>
-        <ChartCanvas />
-        <ChartCanvas />
-        <ChartCanvas />
+        <Line
+          data={lineData}
+          options={lineOptions}
+          style={{
+            width: "500px",
+            height: "400px",
+            backgroundColor: "white",
+            boxShadow: "10px 5px 5px gray",
+          }}
+        />
+        <Line
+          data={lineData}
+          options={lineOptions}
+          style={{
+            width: "500px",
+            height: "400px",
+            backgroundColor: "white",
+            boxShadow: "10px 5px 5px gray",
+          }}
+        />
+        <Line
+          data={lineData}
+          options={lineOptions}
+          style={{
+            width: "500px",
+            height: "400px",
+            backgroundColor: "white",
+            boxShadow: "10px 5px 5px gray",
+          }}
+        />
       </ChartContainer>
     </>
   );
@@ -62,17 +68,6 @@ export default TodayChartBox;
 const ChartContainer = styled.div`
   display: flex;
   justify-content: space-between;
-`;
-
-const Chart = styled.div`
-  background-color: ${(props) => props.theme.mainColor};
-  width: 300px;
-  height: 300px;
-`;
-
-const ChartCanvas = styled.canvas`
-  margin: 30px 20px;
-  background-color: red;
-  width: 550px;
-  height: 400px;
+  padding: 30px 70px;
+  margin-bottom: 120px;
 `;
