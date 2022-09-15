@@ -1,17 +1,37 @@
 import React from "react";
 import styled from "styled-components";
-import { Carousel } from "antd";
-import "antd/dist/antd.min.css";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const ChartContainer = () => {
+  const settings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 3,
+    nextArrow: <Co />,
+  };
   return (
     <>
       <ChartBox>
-        <Carousel autoplay>
+        <Slider {...settings}>
           <ChartContent>1</ChartContent>
           <ChartContent>2</ChartContent>
           <ChartContent>3</ChartContent>
-        </Carousel>
+          <ChartContent>1</ChartContent>
+          <ChartContent>1</ChartContent>
+          <ChartContent>3</ChartContent>
+          <ChartContent>1</ChartContent>
+          <ChartContent>1</ChartContent>
+          <ChartContent>3</ChartContent>
+          <ChartContent>1</ChartContent>
+          <ChartContent>1</ChartContent>
+          <ChartContent>3</ChartContent>
+          <ChartContent>1</ChartContent>
+          <ChartContent>1</ChartContent>
+        </Slider>
       </ChartBox>
     </>
   );
@@ -20,14 +40,19 @@ const ChartContainer = () => {
 export default ChartContainer;
 
 const ChartBox = styled.div`
-  width: 50%;
-  background-color: red;
+  width: 600px;
+  background-color: white;
+  height: 500px;
 `;
 
 const ChartContent = styled.div`
-  width: 350px;
-  height: 350px;
-  background-color: green;
+  width: 500px;
+  height: 500px;
+  background-color: beige;
+  border: 1px solid black;
   color: white;
-  font-size: 30px;
+`;
+const Co = styled.div`
+  width: 30px;
+  height: 30px;
 `;

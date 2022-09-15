@@ -57,15 +57,16 @@ const Main = () => {
           <TodayChartTitle>오늘의 차트 구경</TodayChartTitle>
           <TodayChartBox exchangeData={exchangeData} />
           <TodayChartTitle>오늘의 환율 구경</TodayChartTitle>
-          <ExChange exchangeData={exchangeData} />
-          <TodayChartBox exchangeData={exchangeData} />
-          <TodayChartBox exchangeData={exchangeData} />
+          <Box>
+            <ExChange exchangeData={exchangeData} />
+          </Box>
         </TodayChartContainer>
       </MainContainer>
     </>
   );
 };
 
+//<Exchange exchangeData={exchangeData} />
 const MainContainer = styled.div``;
 
 const MainBorder = styled.div`
@@ -122,6 +123,10 @@ const ChevronBox = styled.div`
   :hover {
     color: gray;
   }
+`;
+
+const Box = styled.div`
+  display: flex;
 `;
 
 export default Main;

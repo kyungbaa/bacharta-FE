@@ -13,6 +13,7 @@ import {
 } from "chart.js";
 import { ExchageProps } from "./MainTypes";
 import { lineOptions, lineData } from "./ChartData/ChartData";
+import ExChange from "./ExChange";
 
 ChartJS.register(
   CategoryScale,
@@ -32,30 +33,34 @@ const TodayChartBox = ({ exchangeData }: { exchangeData: ExchageProps[] }) => {
           data={lineData}
           options={lineOptions}
           style={{
-            width: "500px",
-            height: "400px",
+            width: "450px",
+            height: "350px",
             backgroundColor: "white",
             boxShadow: "10px 5px 5px gray",
+            marginRight: "10px",
+          }}
+        />
+
+        <Line
+          data={lineData}
+          options={lineOptions}
+          style={{
+            width: "450px",
+            height: "350px",
+            backgroundColor: "white",
+            boxShadow: "10px 5px 5px gray",
+            marginRight: "10px",
           }}
         />
         <Line
           data={lineData}
           options={lineOptions}
           style={{
-            width: "500px",
-            height: "400px",
+            width: "450px",
+            height: "350px",
             backgroundColor: "white",
             boxShadow: "10px 5px 5px gray",
-          }}
-        />
-        <Line
-          data={lineData}
-          options={lineOptions}
-          style={{
-            width: "500px",
-            height: "400px",
-            backgroundColor: "white",
-            boxShadow: "10px 5px 5px gray",
+            marginRight: "10px",
           }}
         />
       </ChartContainer>
