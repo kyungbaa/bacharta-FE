@@ -1,15 +1,22 @@
 import React from "react";
-import * as S from "./Outfits.styles";
-
+import styled from "styled-components";
 import OutfitsModal from "../../components/pages/Outfits/OutfitsModal";
 const Outfits = () => {
   return (
-    <S.OutfitsWrapper>
-      <S.OutfitsSection>
+    <OutfitsWrapper>
+      <OutfitsSection>
         <OutfitsModal></OutfitsModal>
-      </S.OutfitsSection>
-    </S.OutfitsWrapper>
+      </OutfitsSection>
+    </OutfitsWrapper>
   );
 };
+const OutfitsWrapper = styled.div`
+  ${({ theme }) => theme.flexMixin("", "center")}
+`;
+
+const OutfitsSection = styled.div`
+  ${({ theme }) => theme.flexMixin("center", "center")}
+  width: 1080px;
+`;
 
 export default Outfits;

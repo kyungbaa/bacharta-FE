@@ -1,16 +1,6 @@
 import styled from "styled-components";
-import { makeStyles } from "@mui/material";
 
-export const ModalWrapper = styled.form`
-  /* ${({ theme }) => theme.flexMixin("", "center")} */
-  background-color: ${(props) => props.theme.white};
-  margin-top: 150px;
-  padding: 30px;
-  width: 650px;
-  border-radius: ${(props) => props.theme.bordeRadius};
-  box-shadow: ${(props) => props.theme.highModalShdow};
-`;
-
+export const Wrap = styled.div``;
 export const ModalHeader = styled.div`
   ${({ theme }) => theme.flexMixin("", "center")}
 `;
@@ -26,12 +16,12 @@ export const ModalSection = styled.div`
   padding-top: 10px;
 `;
 export const ModalImage = styled.img`
-  width: 80px;
+  width: 140px;
 `;
 
 export const ModalSelect = styled.div`
   ${({ theme }) => theme.flexMixin("center", "center")}
-  padding-top: 18px;
+  padding-top: 14px;
 `;
 
 export const ModalFooter = styled.div`
@@ -39,9 +29,9 @@ export const ModalFooter = styled.div`
   padding-top: 24px;
 `;
 
-export const ModalButton = styled.button`
+export const NextButton = styled.button`
   background-color: ${(props) => props.theme.keyColor};
-  padding: 14px 30px;
+  padding: 10px 30px;
   color: ${(props) => props.theme.white};
   border-radius: 30px;
   border: none;
