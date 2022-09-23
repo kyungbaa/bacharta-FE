@@ -1,55 +1,159 @@
 import React from "react";
 import styled from "styled-components";
-import * as S from "./SelectStyle";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
-interface UserSelectProps {
-  isActiveModalStatus: () => void;
+import { indigo, grey } from "@mui/material/colors";
+
+interface ControlProps {
+  checked: boolean;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  value: string;
+  name: string;
+  inputProps: {
+    "aria-label": string;
+  };
 }
-const TemperatureSelect = ({ isActiveModalStatus }: UserSelectProps) => {
+
+interface SelectProps {
+  isActiveModalStatus: () => void;
+  controlProps: (item: string) => ControlProps;
+}
+
+const TemperatureSelect = ({
+  isActiveModalStatus,
+  controlProps,
+}: SelectProps) => {
   return (
-    <S.Wrap>
-      <S.ModalHeader>
-        <S.ModalTitle>지금 느끼는 온도는 어떤가요?</S.ModalTitle>
-      </S.ModalHeader>
-      <S.ModalSection>
-        <S.ModalImage
+    <Wrap>
+      <ModalHeader>
+        <ModalTitle>지금 느끼는 온도는 어떤가요?</ModalTitle>
+      </ModalHeader>
+      <ModalSection>
+        <ModalImage
           src="/images/Outfits/weather.png"
           alt="날씨아이콘"
-        ></S.ModalImage>
-      </S.ModalSection>
+        ></ModalImage>
+      </ModalSection>
 
-      <S.ModalSelect>
+      <ModalSelect>
         <FormControl>
           <RadioGroup
             row
             aria-labelledby="demo-row-radio-buttons-group-label"
             name="row-radio-buttons-group"
             defaultValue="good"
+            color="success"
           >
             <FormControlLabel
-              value="cold."
-              control={<Radio />}
+              value="cold"
+              control={
+                <Radio
+                  {...controlProps("cold")}
+                  sx={{
+                    color: grey["300"],
+                    "&.Mui-checked": {
+                      color: indigo["A200"],
+                    },
+                  }}
+                />
+              }
               label="추워요"
             />
             <FormControlLabel
               value="good"
-              control={<Radio />}
+              control={
+                <Radio
+                  {...controlProps("good")}
+                  sx={{
+                    color: grey["300"],
+                    "&.Mui-checked": {
+                      color: indigo["A200"],
+                    },
+                  }}
+                />
+              }
               label="적당해요"
             />
-            <FormControlLabel value="hot" control={<Radio />} label="더워요" />
+            <FormControlLabel
+              value="hot"
+              control={
+                <Radio
+                  {...controlProps("hot")}
+                  sx={{
+                    color: grey["300"],
+                    "&.Mui-checked": {
+                      color: indigo["A200"],
+                    },
+                  }}
+                />
+              }
+              label="더워요"
+            />
           </RadioGroup>
         </FormControl>
-      </S.ModalSelect>
-      <S.ModalFooter>
-        {/* <PrevButton>이전</PrevButton> */}
-        <S.NextButton>다음</S.NextButton>
-      </S.ModalFooter>
-    </S.Wrap>
+      </ModalSelect>
+      <ModalFooter>
+        <PrevButton onClick={isActiveModalStatus}>이전</PrevButton>
+        <NextButton>다음</NextButton>
+      </ModalFooter>
+    </Wrap>
   );
 };
+
+const Wrap = styled.div``;
+const ModalHeader = styled.div`
+  ${({ theme }) => theme.flexMixin("", "center")}
+`;
+const ModalTitle = styled.h2`
+  padding: 10px 0;
+  font-weight: 600;
+  font-size: 22px;
+  color: ${(props) => props.theme.keyColor};
+`;
+const ModalSection = styled.div`
+  ${({ theme }) => theme.flexMixin("", "center")}
+  padding-top: 10px;
+`;
+const ModalImage = styled.img`
+  width: 100px;
+`;
+const ModalSelect = styled.div`
+  ${({ theme }) => theme.flexMixin("center", "center")}
+  padding-top: 14px;
+`;
+const ModalFooter = styled.div`
+  ${({ theme }) => theme.flexMixin("", "center")}
+  padding-top: 24px;
+`;
+
+const PrevButton = styled.button`
+  box-sizing: border-box;
+  margin-right: 10px;
+  background-color: ${(props) => props.theme.lightGrey};
+  padding: 10px 30px;
+  color: ${(props) => props.theme.keyColor};
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  &:hover {
+    background-color: ${(props) => props.theme.grey};
+  }
+`;
+const NextButton = styled.button`
+  background-color: ${(props) => props.theme.keyColor};
+  padding: 10px 30px;
+  color: ${(props) => props.theme.white};
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  &:hover {
+    background-color: ${(props) => props.theme.hoverBlue};
+  }
+`;
 
 const LOCATION_INFO: { [key: string]: string }[] = [
   { seoul: "서울" },
@@ -70,5 +174,4 @@ const LOCATION_INFO: { [key: string]: string }[] = [
   { gyeongnam: "경남" },
   { jeju: "제주" },
 ];
-
 export default TemperatureSelect;
