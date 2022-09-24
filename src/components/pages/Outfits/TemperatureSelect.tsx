@@ -18,12 +18,14 @@ interface ControlProps {
 
 interface SelectProps {
   isActiveModalStatus: () => void;
+  getOutfitsInfo: () => void;
   controlProps: (item: string) => ControlProps;
 }
 
 const TemperatureSelect = ({
   isActiveModalStatus,
   controlProps,
+  getOutfitsInfo,
 }: SelectProps) => {
   return (
     <Wrap>
@@ -62,10 +64,10 @@ const TemperatureSelect = ({
               label="추워요"
             />
             <FormControlLabel
-              value="good"
+              value="normal"
               control={
                 <Radio
-                  {...controlProps("good")}
+                  {...controlProps("normal")}
                   sx={{
                     color: grey["300"],
                     "&.Mui-checked": {
@@ -96,7 +98,7 @@ const TemperatureSelect = ({
       </ModalSelect>
       <ModalFooter>
         <PrevButton onClick={isActiveModalStatus}>이전</PrevButton>
-        <NextButton>다음</NextButton>
+        <NextButton onClick={getOutfitsInfo}>다음</NextButton>
       </ModalFooter>
     </Wrap>
   );

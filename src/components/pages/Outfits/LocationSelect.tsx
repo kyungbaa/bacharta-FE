@@ -1,20 +1,20 @@
 import React from "react";
 import styled from "styled-components";
-
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+
 interface UserSelectProps {
   isActiveModalStatus: () => void;
+  handleChangeLocation: (event: SelectChangeEvent) => void;
+  location: string;
 }
-const LocationSelect = ({ isActiveModalStatus }: UserSelectProps) => {
-  const [location, setLocation] = React.useState("");
-
-  const handleChange = (event: SelectChangeEvent) => {
-    setLocation(event.target.value);
-  };
-
+const LocationSelect = ({
+  isActiveModalStatus,
+  handleChangeLocation,
+  location,
+}: UserSelectProps) => {
   return (
     <Wrap>
       <ModalHeader>
@@ -35,17 +35,19 @@ const LocationSelect = ({ isActiveModalStatus }: UserSelectProps) => {
             labelId="demo-simple-select-standard-label"
             id="demo-simple-select-standard"
             value={location}
-            onChange={handleChange}
+            onChange={handleChangeLocation}
             label="location"
             MenuProps={{
               disableScrollLock: true,
             }}
           >
-            {LOCATION_INFO.map((location, index) => (
-              <MenuItem key={index} value={index}>
-                {Object.values(location)}
-              </MenuItem>
-            ))}
+            {LOCATION_INFO.map((location) => {
+              return (
+                <MenuItem key={location.id} value={location.name}>
+                  {location.name}
+                </MenuItem>
+              );
+            })}
           </Select>
         </FormControl>
       </ModalSelect>
@@ -58,45 +60,25 @@ const LocationSelect = ({ isActiveModalStatus }: UserSelectProps) => {
   );
 };
 
-const LOCATION_INFO: { [key: string]: string }[] = [
-  { seoul: "서울" },
-  { incheon: "인천" },
-  { busan: "부산" },
-  { daegu: "대구" },
-  { gwangju: "광주" },
-  { daejeon: "대전" },
-  { ulsan: "울산" },
-  { sejong: "세종" },
-  { gyeonggi: "경기" },
-  { gangwon: "강원" },
-  { chungbuk: "충북" },
-  { chungcheong: "충남" },
-  { jeonbuk: "전북" },
-  { jeonnam: "전남" },
-  { gyeongbuk: "경북" },
-  { gyeongnam: "경남" },
-  { jeju: "제주" },
+const LOCATION_INFO: { name: string; id: number }[] = [
+  { id: 0, name: "서울" },
+  { id: 1, name: "인천" },
+  { id: 2, name: "부산" },
+  { id: 3, name: "대구" },
+  { id: 4, name: "광주" },
+  { id: 5, name: "대전" },
+  { id: 6, name: "울산" },
+  { id: 7, name: "세종" },
+  { id: 8, name: "경기" },
+  { id: 9, name: "강원" },
+  { id: 10, name: "충북" },
+  { id: 11, name: "충남" },
+  { id: 12, name: "전북" },
+  { id: 13, name: "전남" },
+  { id: 14, name: "경북" },
+  { id: 15, name: "경남" },
+  { id: 16, name: "제주" },
 ];
-
-// const LOCATION_INFO: { [key: string]: string }[] = [
-//   {  seoul: "서울"},
-//   { incheon: "인천" },
-//   { busan: "부산" },
-//   { daegu: "대구" },
-//   { gwangju: "광주" },
-//   { daejeon: "대전" },
-//   { ulsan: "울산" },
-//   { sejong: "세종" },
-//   { gyeonggi: "경기" },
-//   { gangwon: "강원" },
-//   { chungbuk: "충북" },
-//   { chungcheong: "충남" },
-//   { jeonbuk: "전북" },
-//   { jeonnam: "전남" },
-//   { gyeongbuk: "경북" },
-//   { gyeongnam: "경남" },
-//   { jeju: "제주" },
-// ];
 
 const Wrap = styled.div``;
 const ModalHeader = styled.div`

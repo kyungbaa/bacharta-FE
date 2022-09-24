@@ -1,18 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import LocationSelect from "./LocationSelect";
 import TemperatureSelect from "./TemperatureSelect";
+import { SelectChangeEvent } from "@mui/material/Select";
+import axios from "axios";
 
 const OutfitsModal = () => {
   const [isActiveModal, setIsActiveModal] = useState(false);
-  const [sensibleTemp, setSensibleTemp] = React.useState("");
+
+  const [userSelect, setUserSelect] = React.useState({
+    sensibleTemp: "",
+    location: "",
+  });
+
+  const { sensibleTemp, location } = userSelect;
+
+  const tempSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
 
   const isActiveModalStatus = () => {
     setIsActiveModal(!isActiveModal);
   };
 
   const handleSelectTemp = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSensibleTemp(event.target.value);
+    const tempValue = event.target.value;
+    setUserSelect({ ...userSelect, sensibleTemp: tempValue });
   };
 
   const controlProps = (item: string) => ({
@@ -23,15 +36,38 @@ const OutfitsModal = () => {
     inputProps: { "aria-label": item },
   });
 
+  const handleChangeLocation = (event: SelectChangeEvent) => {
+    const locationValue = event.target.value;
+    setUserSelect({ ...userSelect, location: locationValue });
+  };
+
+  const getOutfitsInfo = () => {
+    axios
+      .post("http://localhost:3000//outfits", {
+        sensibleTemp: sensibleTemp,
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
   return (
     <>
-      <ModalWrapper>
+      <ModalWrapper onSubmit={tempSubmit}>
         {!isActiveModal ? (
-          <LocationSelect isActiveModalStatus={isActiveModalStatus} />
+          <LocationSelect
+            location={location}
+            isActiveModalStatus={isActiveModalStatus}
+            handleChangeLocation={handleChangeLocation}
+          />
         ) : (
           <TemperatureSelect
             isActiveModalStatus={isActiveModalStatus}
             controlProps={controlProps}
+            getOutfitsInfo={getOutfitsInfo}
           />
         )}
       </ModalWrapper>
