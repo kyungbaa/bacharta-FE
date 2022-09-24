@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker";
+import { faStackExchange } from "@fortawesome/free-brands-svg-icons";
 export const lineOptions = {
   responsive: false,
   plugins: {
@@ -18,6 +19,7 @@ export const lineOptions = {
 };
 
 const labels = ["January", "February", "March", "April", "May", "June", "July"];
+
 
 export const lineData = {
   labels,

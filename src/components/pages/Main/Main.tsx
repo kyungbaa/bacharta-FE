@@ -57,9 +57,8 @@ const Main = () => {
           <TodayChartTitle>오늘의 차트 구경</TodayChartTitle>
           <TodayChartBox exchangeData={exchangeData} />
           <TodayChartTitle>오늘의 환율 구경</TodayChartTitle>
-          <Box>
-            <ExChange exchangeData={exchangeData} />
-          </Box>
+
+          <ExChange exchangeData={exchangeData} />
         </TodayChartContainer>
       </MainContainer>
     </>

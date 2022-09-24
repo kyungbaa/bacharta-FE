@@ -9,8 +9,8 @@ const ExchangeCard = ({ nation, price, unit }: ItemProps) => {
   return (
     <ExchangeItem>
       <ExchangeNation>{nation}</ExchangeNation>
-      <ExchangeNation>{price}</ExchangeNation>
-      <ExchangeNation>{unit}</ExchangeNation>
+      <ExchangeNation>가격 : {price}</ExchangeNation>
+      <ExchangeNation>단위 : {unit}</ExchangeNation>
     </ExchangeItem>
   );
 };
@@ -18,12 +18,18 @@ const ExchangeCard = ({ nation, price, unit }: ItemProps) => {
 export default ExchangeCard;
 
 const ExchangeItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 300px;
   height: 300px;
-  margin-right: 40px;
+
+  border: 1px solid black;
   box-shadow: 10px 5px 5px gray;
 `;
 
 const ExchangeNation = styled.div`
+  margin: 10px;
   font-size: 20px;
 `;

@@ -11,7 +11,6 @@ const ChartContainer = () => {
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 3,
-    nextArrow: <Co />,
   };
   return (
     <>
