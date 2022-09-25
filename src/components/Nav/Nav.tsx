@@ -73,6 +73,13 @@ const Nav = () => {
     navigate('/');
   };
 
+  const goToCategories = (page: string) => {
+    console.log(page);
+    if (page === 'Home') navigate('/');
+    if (page === 'Maps') navigate('/maps');
+    if (page === 'OutFits') navigate('/outfits');
+  };
+
   const { thumbnail_image_url, nickname }: any = profile;
 
   const kakaoLogout = (setting: string) => {
@@ -152,7 +159,7 @@ const Nav = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem key={page}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
@@ -188,7 +195,7 @@ const Nav = () => {
               {pages.map((page) => (
                 <Button
                   key={page}
-                  onClick={handleCloseNavMenu}
+                  onClick={() => goToCategories(page)}
                   sx={{ my: 2, color: 'white', display: 'block' }}
                   style={{ marginRight: '30px', fontSize: '18px' }}
                 >

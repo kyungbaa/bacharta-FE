@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import LocationSelect from "./LocationSelect";
-import TemperatureSelect from "./TemperatureSelect";
-import { SelectChangeEvent } from "@mui/material/Select";
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import LocationSelect from './LocationSelect';
+import TemperatureSelect from './TemperatureSelect';
+import { SelectChangeEvent } from '@mui/material/Select';
+import axios from 'axios';
 
 const OutfitsModal = () => {
   const [isActiveModal, setIsActiveModal] = useState(false);
 
   const [userSelect, setUserSelect] = React.useState({
-    sensibleTemp: "",
-    location: "",
+    sensibleTemp: '',
+    location: '',
   });
 
   const { sensibleTemp, location } = userSelect;
@@ -32,8 +32,8 @@ const OutfitsModal = () => {
     checked: sensibleTemp === item,
     onChange: handleSelectTemp,
     value: item,
-    name: "color-radio-button",
-    inputProps: { "aria-label": item },
+    name: 'color-radio-button',
+    inputProps: { 'aria-label': item },
   });
 
   const handleChangeLocation = (event: SelectChangeEvent) => {
@@ -43,7 +43,7 @@ const OutfitsModal = () => {
 
   const getOutfitsInfo = () => {
     axios
-      .post("http://localhost:3000//outfits", {
+      .post('http://localhost:3000//outfits', {
         sensibleTemp: sensibleTemp,
       })
       .then(function (response) {

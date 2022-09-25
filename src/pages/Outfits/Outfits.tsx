@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import OutfitsModal from "../../components/pages/Outfits/OutfitsModal";
+import React from 'react';
+import styled from 'styled-components';
+import OutfitsModal from './OutfitsModal';
 
 const Outfits = () => {
   return (
@@ -12,11 +12,11 @@ const Outfits = () => {
   );
 };
 const OutfitsWrapper = styled.div`
-  ${({ theme }) => theme.flexMixin("", "center")}
+  ${({ theme }) => theme.flexMixin('', 'center')}
 `;
 
 const OutfitsSection = styled.div`
-  ${({ theme }) => theme.flexMixin("center", "center")}
+  ${({ theme }) => theme.flexMixin('center', 'center')}
   width: 1080px;
 `;
 
