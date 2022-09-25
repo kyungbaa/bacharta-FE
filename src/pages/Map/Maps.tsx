@@ -8,7 +8,7 @@ const Maps = () => {
 
   return (
     <Map
-      center={{ lat: 36.489127040010096, lng: 127.73040266182423 }}
+      center={{ lat: 34.489127040010096, lng: 127.73040266182423 }}
       style={{ width: '80%', height: '1000px' }}
       level={level}
     >
