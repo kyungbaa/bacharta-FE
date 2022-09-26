@@ -1,7 +1,18 @@
 import { faker } from "@faker-js/faker";
-// import { faStackExchange } from "@fortawesome/free-brands-svg-icons";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+
 export const lineOptions = {
-  responsive: false,
+  responsive: true,
+  maintainAspectRatio: false,
   plugins: {
     legend: {
       position: "top" as const,
@@ -12,8 +23,8 @@ export const lineOptions = {
       },
     },
     title: {
-      display: true,
-      text: "세계 나라의 환율 추이",
+      display: false,
+      text: "지역의 날씨",
     },
   },
 };
@@ -31,12 +42,6 @@ export const lineData = {
       font: {
         size: 40,
       },
-    },
-    {
-      label: "Dataset 2",
-      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-      borderColor: "rgb(53, 162, 235)",
-      backgroundColor: "rgba(53, 162, 235, 0.5)",
     },
   ],
 };
