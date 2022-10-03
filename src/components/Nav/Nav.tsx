@@ -44,12 +44,6 @@ const Nav = () => {
     profile_image_url: string;
   }
 
-  // const {
-  //   kakao_account: {
-  //     profile: { nickname, profile_image_url, thumbnail_image_url },
-  //   },
-  // } = profile;
-
   const handleLogin = () => {
     window.location.href = KAKAO_AUTH_URL;
   };
@@ -77,7 +71,7 @@ const Nav = () => {
     console.log(page);
     if (page === 'Home') navigate('/');
     if (page === 'Maps') navigate('/maps');
-    if (page === 'OutFits') navigate('/outfits');
+    if (page === 'OutFits') navigate('/outfit');
   };
 
   const { thumbnail_image_url, nickname }: any = profile;
