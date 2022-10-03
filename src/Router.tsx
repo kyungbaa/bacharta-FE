@@ -1,20 +1,16 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Main from './pages/Main/Main';
 import Maps from './pages/Map/Maps';
-import Login from './components/Login/Login';
+import Main from './pages/Main/Main';
 import Outfits from './pages/Outfits/Outfits';
-import Nav from './components/Nav/Nav';
 
 const Router = () => {
   return (
     <BrowserRouter>
-      <Nav />
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/maps" element={<Maps />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/outfits" element={<Outfits />} />
+        <Route path="/outfit" element={<Outfits />} />
       </Routes>
     </BrowserRouter>
   );
