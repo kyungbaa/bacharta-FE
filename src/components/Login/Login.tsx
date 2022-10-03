@@ -43,13 +43,13 @@ const Login = () => {
       })
       .catch((err) => console.log(err));
 
-    await axios
-      .get('http://192.168.0.6:3000/user/sign', {
-        headers: {
-          Authorization: kakaoToken || '',
-        },
-      })
-      .then((res) => console.log(res.data));
+    // await axios
+    //   .get('http://192.168.0.6:3000/user/sign', {
+    //     headers: {
+    //       Authorization: kakaoToken || '',
+    //     },
+    //   })
+    //   .then((res) => console.log(res.data));
     setLoading(!loading);
   };
 

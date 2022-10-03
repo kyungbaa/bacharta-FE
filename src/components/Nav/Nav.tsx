@@ -19,7 +19,7 @@ import { useRecoilState } from 'recoil';
 import { KakaoProfile, KakaoToken, LoadingState } from '../../store/store';
 
 const pages = ['Home', 'Maps', 'OutFits'];
-const settings = ['Profile', 'Account', 'Logout'];
+const settings = ['Logout'];
 
 const Nav = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -28,7 +28,7 @@ const Nav = () => {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
-  const kakaoToken = localStorage.getItem('access_token');
+
   const navigate = useNavigate();
   const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
   const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
@@ -37,12 +37,6 @@ const Nav = () => {
   const [token, setToken] = useRecoilState(KakaoToken);
   const [profile, setProfile] = useRecoilState(KakaoProfile);
   const [loading, setLoading] = useRecoilState(LoadingState);
-
-  interface ProfileType {
-    nickname: string;
-    thumbnail_image_url: string;
-    profile_image_url: string;
-  }
 
   const handleLogin = () => {
     window.location.href = KAKAO_AUTH_URL;
