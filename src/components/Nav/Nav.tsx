@@ -68,7 +68,6 @@ const Nav = () => {
   };
 
   const goToCategories = (page: string) => {
-    console.log(page);
     if (page === 'Home') navigate('/');
     if (page === 'Maps') navigate('/maps');
     if (page === 'OutFits') navigate('/outfit');
