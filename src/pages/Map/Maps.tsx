@@ -13,7 +13,7 @@ const Maps = () => {
       level={level}
     >
       {MARKER_DATA.map((city) => (
-        <Overlay data={city} />
+        <Overlay data={city} key={city.title} />
       ))}
     </Map>
   );

@@ -15,6 +15,8 @@ const Overlay = ({ data: { title, lat, lng } }: DataType) => {
   const [temperature, setTemperature] = useState<Root>(WEATHER_DATA);
   const [icon, setIcon] = useState<string>();
 
+  const kelvinTemp = 273.15;
+
   interface Root {
     coord: Coord;
     weather: Weather[];
@@ -132,7 +134,10 @@ const Overlay = ({ data: { title, lat, lng } }: DataType) => {
             }}
           >
             <City>{title}</City>
-            <Temperature>{temperature.main.temp}</Temperature>
+            <Temperature>
+              {(temperature.main.temp - kelvinTemp).toFixed(1)}
+              <span>&#8451;</span>
+            </Temperature>
             <WeatherImage src={icon} />
           </div>
         </CustomOverlayMap>
