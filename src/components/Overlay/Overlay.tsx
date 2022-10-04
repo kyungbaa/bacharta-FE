@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { CustomOverlayMap } from 'react-kakao-maps-sdk';
 import * as api from '../../api/weatherAPI';
