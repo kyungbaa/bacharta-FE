@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Map } from 'react-kakao-maps-sdk';
 import { MARKER_DATA } from '../../data/MARKER_DATA';
 import Overlay from '../../components/Overlay/Overlay';
+import { useEffect } from 'react';
+import { getWeather } from '../../api/weatherAPI';
 
 const Maps = () => {
   const [level, setLevel] = useState(13);
