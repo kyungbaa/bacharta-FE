@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { CustomOverlayMap } from 'react-kakao-maps-sdk';
-import * as api from '../../api/weatherAPI';
-import clouds from '../../assets/weatherIcons/clouds.png';
-import rain from '../../assets/weatherIcons/rain.png';
-import snow from '../../assets/weatherIcons/snow.png';
-import sun from '../../assets/weatherIcons/sun.png';
-import { WEATHER_DATA } from '../../data/WEATHER_DATA';
+import clouds from '../../../../assets/weatherIcons/sun.png';
+import rain from '../../../../assets/weatherIcons/rain.png';
+import snow from '../../../../assets/weatherIcons/snow.png';
+import sun from '../../../../assets/weatherIcons/sun.png';
+import { WEATHER_DATA } from '../../../../data/WEATHER_DATA';
+import styled from 'styled-components';
 
 interface DataType {
   data: { title: string; lat: number; lng: number };
@@ -118,7 +118,6 @@ const Overlay = ({ data: { title, lat, lng } }: DataType) => {
   //       setIcon(weatherIcons);
   //     });
 
-  //   // api.getWeather(lat, lng).then((res) => console.log(res.data));
   // }, []);
 
   return (
@@ -128,19 +127,28 @@ const Overlay = ({ data: { title, lat, lng } }: DataType) => {
           <div
             style={{
               padding: '10qpx',
-              backgroundColor: '#fff',
+              backgroundColor: '#e3d4f7',
               color: '#000',
             }}
           >
-            {title}
-            {temperature.main.temp}
-            {/* <img src={`../../assets/weatherIcons/${icon}`} /> */}
-            <img src={icon} />
+            <City>{title}</City>
+            <Temperature>{temperature.main.temp}</Temperature>
+            <WeatherImage src={icon} />
           </div>
         </CustomOverlayMap>
       )}
     </>
   );
 };
+
+const City = styled.div`
+  padding: 5px;
+  text-align: center;
+`;
+const Temperature = styled(City)``;
+
+const WeatherImage = styled.img`
+  width: 50px;
+`;
 
 export default Overlay;

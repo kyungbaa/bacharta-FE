@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import { Map } from 'react-kakao-maps-sdk';
 import { MARKER_DATA } from '../../data/MARKER_DATA';
-import Overlay from '../../components/Overlay/Overlay';
-import { useEffect } from 'react';
-import { getWeather } from '../../api/weatherAPI';
+import Overlay from './components/Overlay/Overlay';
 
 const Maps = () => {
   const [level, setLevel] = useState(13);
@@ -11,7 +9,7 @@ const Maps = () => {
   return (
     <Map
       center={{ lat: 34.489127040010096, lng: 127.73040266182423 }}
-      style={{ width: '80%', height: '1000px' }}
+      style={{ width: '100%', height: '1000px' }}
       level={level}
     >
       {MARKER_DATA.map((city) => (
