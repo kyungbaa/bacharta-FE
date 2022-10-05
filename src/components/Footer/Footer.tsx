@@ -10,8 +10,8 @@ const Footer = () => {
           {TEAM_PROFILE.map((profile) => {
             return (
               <TeamProfile
-                key={profile.id}
                 name={profile.name}
+                key={profile.id}
                 gitURL={profile.gitURL}
                 blogURL={profile.blogURL}
                 duty={profile.duty}
