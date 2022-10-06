@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Line } from 'react-chartjs-2';
+import styled from "styled-components";
+import { Line } from "react-chartjs-2";
 
 import {
   Chart as ChartJS,
@@ -10,9 +10,9 @@ import {
   Title,
   Tooltip,
   Legend,
-} from 'chart.js';
-import { ExchageProps } from './MainTypes';
-import { lineOptions, lineData } from './ChartData/ChartData';
+} from "chart.js";
+import { ExchageProps } from "./MainTypes";
+import { lineOptions, lineData } from "./ChartData/ChartData";
 
 ChartJS.register(
   CategoryScale,
@@ -32,11 +32,11 @@ const TodayChartBox = ({ exchangeData }: { exchangeData: ExchageProps[] }) => {
           data={lineData}
           options={lineOptions}
           style={{
-            width: '450px',
-            height: '350px',
-            backgroundColor: 'white',
-            boxShadow: '10px 5px 5px gray',
-            marginRight: '10px',
+            width: "450px",
+            height: "350px",
+            backgroundColor: "white",
+            boxShadow: "10px 5px 5px gray",
+            marginRight: "10px",
           }}
         />
 
@@ -44,22 +44,22 @@ const TodayChartBox = ({ exchangeData }: { exchangeData: ExchageProps[] }) => {
           data={lineData}
           options={lineOptions}
           style={{
-            width: '450px',
-            height: '350px',
-            backgroundColor: 'white',
-            boxShadow: '10px 5px 5px gray',
-            marginRight: '10px',
+            width: "450px",
+            height: "350px",
+            backgroundColor: "white",
+            boxShadow: "10px 5px 5px gray",
+            marginRight: "10px",
           }}
         />
         <Line
           data={lineData}
           options={lineOptions}
           style={{
-            width: '450px',
-            height: '350px',
-            backgroundColor: 'white',
-            boxShadow: '10px 5px 5px gray',
-            marginRight: '10px',
+            width: "450px",
+            height: "350px",
+            backgroundColor: "white",
+            boxShadow: "10px 5px 5px gray",
+            marginRight: "10px",
           }}
         />
       </ChartContainer>
