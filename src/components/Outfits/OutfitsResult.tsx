@@ -59,13 +59,6 @@ const OutfitsResult = () => {
       return SUMMER;
     }
     return WINTER;
-
-    // switch (userSensibleTemp) {
-    //   case ((userSensibleTemp >= 4 ):boolena && (userSensibleTemp < 9):Boolean):
-    //     return EARY_WINTER;
-    //     break;
-
-    // }
   };
 
   const todayRecommendOutfits = weatherClothes();

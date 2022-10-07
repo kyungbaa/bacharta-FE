@@ -3,13 +3,12 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import HomeIcon from "@mui/icons-material/Home";
-import { Link } from "react-router-dom";
 type TeamProfileProps = {
   name: string;
   gitURL: string;
   blogURL: string;
   duty: string;
-  impression: string;
+  // impression: string;
   profileImage: string;
 };
 
@@ -18,7 +17,6 @@ const TeamProfile = ({
   gitURL,
   blogURL,
   duty,
-  impression,
   profileImage,
 }: TeamProfileProps) => {
   const [showProfile, setShowProfile] = useState(false);
@@ -36,24 +34,20 @@ const TeamProfile = ({
             <BubbleHeader>
               <Name>{name}</Name>
               <TeamLink>
-                <Link
-                  style={{ color: "white", marginRight: "4px" }}
-                  to={gitURL}
-                >
+                <a target="_blank" href={gitURL} rel="noreFerrer">
                   <GitHubIcon sx={{ fontSize: "19px" }} />
-                </Link>
-                <Link style={{ color: "white" }} to={blogURL}>
+                </a>
+                <a target="_blank" href={blogURL} rel="noreFerrer">
                   <HomeIcon sx={{ fontSize: "21px" }} />
-                </Link>
+                </a>
               </TeamLink>
             </BubbleHeader>
             <SubInfo>{duty}</SubInfo>
-            <Impression>{impression}</Impression>
           </BubbleWrap>
         </SpeechBubble>
       ) : null}
 
-      <TeamMemoji src={profileImage} alt="ddd" />
+      <TeamMemoji src={profileImage} alt={`${name}의 미모티콘 이미지`} />
     </Wrap>
   );
 };
@@ -96,15 +90,6 @@ const SpeechBubble = styled.div`
     top: -14em;
     animation-duration: 3s;
   }
-  @keyframes fadeout {
-    0% {
-      opacity: 0;
-    }
-
-    100% {
-      opacity: 1;
-    }
-  }
 `;
 const BubbleHeader = styled.div`
   ${({ theme }) => theme.flexMixin("center", "")}
@@ -121,16 +106,16 @@ const Name = styled.h3`
 const SubInfo = styled.p`
   font-size: 15px;
 `;
-const Impression = styled.p`
-  font-size: 14px;
-  padding-top: 0.8em;
-  line-height: 1.2em;
-`;
 const TeamMemoji = styled.img`
   width: 100%;
 `;
 const TeamLink = styled.div`
   margin-left: 10px;
+
+  a {
+    color: ${(props) => props.theme.white};
+    margin-right: 6px;
+  }
 `;
 
 export default TeamProfile;

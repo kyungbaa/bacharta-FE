@@ -23,7 +23,7 @@ const OutfitsModal = () => {
 
   const [userSelect, setUserSelect] = useRecoilState(UserSelectState);
   const [, setWether] = useRecoilState(OutfitsWeatherState);
-
+  const userLocation = localStorage.getItem("location");
   const isActiveModalStatus = () => {
     setIsActiveModal(!isActiveModal);
   };
@@ -37,7 +37,7 @@ const OutfitsModal = () => {
   };
 
   const handleChangeLocation = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUserSelect({ ...userSelect, userLocation: event.target.value });
+    localStorage.setItem("location", event.target.value);
   };
 
   const controlProps = (item: string) => ({
@@ -50,23 +50,17 @@ const OutfitsModal = () => {
 
   useEffect(() => {
     setTimeout(() => setIsLocationError(false), 2000);
-    setUserSelect({ ...userSelect, userLocation: "" });
   }, [isLocationError]);
-
-  // input창 초기화 왜 안되는거지........
-  // const locationInputReset = () => {
-  //   setUserSelect({ ...userSelect, userLocation: " " });
-  // };
 
   const isGoToResult = () => {
     navigate("/outfits/restult");
   };
 
   const getLocationWeather = () => {
-    if (userSelect.userLocation !== "") {
+    if (userLocation !== "") {
       axios
         .get(
-          `https://api.openweathermap.org/data/2.5/weather?q=${userSelect.userLocation}&appid=${apiKey}&units=metric`
+          `https://api.openweathermap.org/data/2.5/weather?q=${userLocation}&appid=${apiKey}&units=metric`
         )
         .then(function (response) {
           let weatherIcons;
@@ -98,7 +92,6 @@ const OutfitsModal = () => {
           isActiveModalStatus();
         })
         .catch(function (error) {
-          // locationInputReset();
           setIsLocationError(true);
         });
     }
@@ -109,7 +102,7 @@ const OutfitsModal = () => {
       <ModalWrapper onSubmit={tempSubmit}>
         {!isActiveModal ? (
           <LocationSelect
-            userLocation={userSelect.userLocation}
+            userLocation={userLocation}
             isActiveModalStatus={isActiveModalStatus}
             handleChangeLocation={handleChangeLocation}
             getLocationWeather={getLocationWeather}

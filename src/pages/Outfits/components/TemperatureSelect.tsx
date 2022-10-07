@@ -49,7 +49,7 @@ const TemperatureSelect = ({
               return (
                 <FormControlLabel
                   key={tempOption.id}
-                  value={"ㅇㅇㅇ"}
+                  value={tempOption.id}
                   control={
                     <Radio
                       {...controlProps(tempOption.temp)}
