@@ -1,35 +1,40 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-
-import { UserSelectState } from "./Data/UserOutfitsData";
 import OutfitsResult from "../../components/Outfits/OutfitsResult";
 import TempChart from "./components/TempChart";
-// import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import TempIcon from "./components/TempIcon";
 import { useRecoilState } from "recoil";
 import { OutfitsWeatherState } from "./Data/UserOutfitsData";
 import { WeatherForcastState } from "./Data/WeatherForcastData";
-// import { WeatherDataType } from "./types/WeatherDataType";
+import { useNavigate } from "react-router-dom";
 
 const Result = () => {
-  // const navigate = useNavigate();
-  const [userSelect] = useRecoilState(UserSelectState);
+  const navigate = useNavigate();
   const [weather] = useRecoilState(OutfitsWeatherState);
-
   const currentLocation = weather.coord;
   const apiKey = process.env.REACT_APP_OPEN_WEATHER_KEY;
-  const [, setTodayWeatherForcast] = useRecoilState(WeatherForcastState);
-  // / 왜 이거 또 안되는거야.......  하하하하
-  // if (userSelect.userLocation.length === 0) {
-  //   navigate("/outfits");
-  // }
+  const [, setWeatherForcast] = useRecoilState(WeatherForcastState);
+  const userLocation = localStorage.getItem("location");
+  const accessToken = localStorage.getItem("access_token");
+  // const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REST_API_KEY}&redirect_uri=${process.env.REDIRECT_URI}&response_type=code`;
+  useEffect(() => {
+    if (!accessToken) {
+      // window.location.href = KAKAO_AUTH_URL;
+      alert("로그인이 필요합니다.");
+      navigate("/");
+    }
+  }, []);
   useEffect(() => {
     axios
       .get(
         `https://api.openweathermap.org/data/2.5/forecast?lat=${currentLocation.lat}&lon=${currentLocation.lon}&appid=${apiKey}&units=metric`
       )
       .then(function (response) {
-        setTodayWeatherForcast(response.data.list);
+        setWeatherForcast({
+          city: response.data.city.name,
+          list: response.data.list,
+        });
       })
       .catch(function (error) {
         console.log(error);
@@ -44,7 +49,8 @@ const Result = () => {
           <OutfitsResult />
         </OutfitsResultWrap>
         <ChartsWrap>
-          <Title>{`${userSelect.userLocation}의 날씨 예보`}</Title>
+          <Title>{`${userLocation}의 날씨 예보`}</Title>
+          <TempIcon />
           <TempChart />
         </ChartsWrap>
       </ResultContents>
@@ -71,4 +77,5 @@ const Title = styled.h1`
 const ChartsWrap = styled.div`
   margin-top: 100px;
 `;
+
 export default Result;

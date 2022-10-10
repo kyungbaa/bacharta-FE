@@ -1,14 +1,15 @@
 export interface LineChartProps {
-  type: string;
   data: Data;
 }
 
 export interface Data {
+  type: string;
   labels: string[];
   dataset: Dataset[];
 }
 
 export interface Dataset {
+  type: string;
   data: number[];
   label: string;
   borderColor: string;

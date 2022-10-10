@@ -4,7 +4,6 @@ import { v4 as uuidv4 } from "uuid";
 export const UserSelectState = atom({
   key: `userState/${uuidv4()}`,
   default: {
-    userLocation: "",
     userTemp: "0",
   },
 });

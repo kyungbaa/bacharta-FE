@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import TeamProfile from "./TeamProfile";
 const Footer = () => {
@@ -15,7 +15,6 @@ const Footer = () => {
                 gitURL={profile.gitURL}
                 blogURL={profile.blogURL}
                 duty={profile.duty}
-                impression={profile.impression}
                 profileImage={profile.profileImage}
               />
             );
@@ -33,34 +32,30 @@ const TEAM_PROFILE = [
     gitURL: "ssss",
     blogURL: "dddd",
     duty: "Main Page, backend",
-    impression: "핫 역시 내가 제일 잘난듯",
     profileImage: "/images/footerImage/intae.png",
   },
   {
     id: 1,
     name: "박보현",
-    gitURL: "ssss",
-    blogURL: "dddd",
+    gitURL: "https://github.com/v-park",
+    blogURL: "https://velog.io/@vanessa",
     duty: "Map Page",
-    impression: "핫 역시 내가 제일 잘난듯",
     profileImage: "/images/footerImage/vanessa.png",
   },
   {
     id: 2,
     name: "백광현",
-    gitURL: "ssss",
-    blogURL: "dddd",
-    duty: "Loin Page",
-    impression: "핫 역시 내가 제일 잘난듯",
+    gitURL: "https://github.com/ghbaekdev",
+    blogURL: "https://velog.io/@bbbb_0221",
+    duty: "Loin Page, Nav",
     profileImage: "/images/footerImage/kwang.png",
   },
   {
     id: 3,
     name: "이후경",
-    gitURL: "ssss",
-    blogURL: "dddd",
-    duty: "Outifits, Footer, Design",
-    impression: "핫 역시 내가 제일 잘난듯",
+    gitURL: "https://github.com/kyungbaa",
+    blogURL: "https://velog.io/@kyung-baa",
+    duty: "Outifits Page, Footer, Design",
     profileImage: "/images/footerImage/hooo.png",
   },
 ];

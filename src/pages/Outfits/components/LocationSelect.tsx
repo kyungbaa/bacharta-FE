@@ -7,7 +7,7 @@ interface UserSelectProps {
   isActiveModalStatus: () => void;
   getLocationWeather: () => void;
   handleChangeLocation: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  userLocation: string;
+  userLocation: string | null;
   isLocationError: boolean;
 }
 const LocationSelect = ({
