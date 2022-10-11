@@ -9,7 +9,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
-import { ReactComponent as Bacharta } from '../../assets/bacharta.svg';
+import { ReactComponent as Bacharta } from '../../assets/bachartawhite.svg';
 import styled from 'styled-components';
 import Tooltip from '@mui/material/Tooltip';
 import Avatar from '@mui/material/Avatar';
@@ -99,10 +99,12 @@ const Nav = () => {
     getProfile();
   }, [token]);
 
+  let color = '#3b55e6';
+
   return (
     <>
       <Login />
-      <AppBar position="static" style={{ background: '#3b55e6' }}>
+      <AppBar position="static" style={{ background: `${color}` }}>
         <Container maxWidth="xl">
           <Toolbar
             disableGutters
