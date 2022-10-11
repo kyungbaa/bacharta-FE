@@ -17,10 +17,10 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { KakaoProfile, KakaoToken, LoadingState } from '../../store/store';
-import theme from '../../styles/theme';
+import Login from '../Login/Login';
 
-const pages = ['Home', 'Maps', 'OutFits'];
 const settings = ['Logout'];
+const pages = ['Home', 'Maps', 'OutFits'];
 
 const Nav = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -71,7 +71,15 @@ const Nav = () => {
   const { thumbnail_image_url, nickname }: any = profile;
 
   const kakaoLogout = (setting: string) => {
+<<<<<<< HEAD
+<<<<<<< HEAD
     setLoading(!loading);
+=======
+    // setLoading(!loading);
+>>>>>>> d89ef7a (login redirect blocker fixed)
+=======
+    setLoading(!loading);
+>>>>>>> 84e20d6 (loading components change)
     if (setting === 'Logout') {
       axios.get(
         `https://kauth.kakao.com/oauth/logout?client_id=${REST_API_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}`
@@ -100,152 +108,155 @@ const Nav = () => {
   }, [token]);
 
   return (
-    <AppBar position="static" style={{ background: `${theme.mainColor}` }}>
-      <Container maxWidth="xl">
-        <Toolbar
-          disableGutters
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            borderBottom: '2px solid #8091ef',
-          }}
-        >
-          <Bacharta
-            width="250"
-            height="115"
-            onClick={goToHome}
-            style={{ cursor: 'pointer' }}
-          />
-
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
+    <>
+      <Login />
+      <AppBar position="static">
+        <Container maxWidth="xl">
+          <Toolbar
+            disableGutters
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              borderBottom: '2px solid #8091ef',
             }}
           >
-            LOGO
-          </Typography>
-          <MenuBox>
-            <Box
+            <Bacharta
+              width="250"
+              height="115"
+              onClick={goToHome}
+              style={{ cursor: 'pointer' }}
+            />
+
+            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: { xs: 'block', md: 'none' },
+                }}
+              >
+                {pages.map((page) => (
+                  <MenuItem key={page}>
+                    <Typography textAlign="center">{page}</Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+
+            <Typography
+              variant="h5"
+              noWrap
+              component="a"
+              href=""
               sx={{
+                mr: 2,
+                display: { xs: 'flex', md: 'none' },
                 flexGrow: 1,
-                display: { xs: 'none', md: 'flex' },
-                marginRight: '50px',
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none',
               }}
             >
-              {pages.map((page) => (
+              LOGO
+            </Typography>
+            <MenuBox>
+              <Box
+                sx={{
+                  flexGrow: 1,
+                  display: { xs: 'none', md: 'flex' },
+                  marginRight: '50px',
+                }}
+              >
+                {pages.map((page) => (
+                  <Button
+                    key={page}
+                    onClick={() => goToCategories(page)}
+                    sx={{ my: 2, color: 'white', display: 'block' }}
+                    style={{ marginRight: '30px', fontSize: '18px' }}
+                  >
+                    {page}
+                  </Button>
+                ))}
+              </Box>
+              {token ? (
+                <Box sx={{ flexGrow: 0 }}>
+                  <Tooltip title="Open settings">
+                    <IconButton
+                      onClick={handleOpenUserMenu}
+                      sx={{ p: 0 }}
+                      style={{ display: 'flex' }}
+                    >
+                      <ProfileName> {nickname}</ProfileName>
+                      <Avatar alt="Remy Sharp" src={thumbnail_image_url} />
+                    </IconButton>
+                  </Tooltip>
+                  <Menu
+                    sx={{ mt: '45px' }}
+                    id="menu-appbar"
+                    anchorEl={anchorElUser}
+                    anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    open={Boolean(anchorElUser)}
+                    onClose={handleCloseUserMenu}
+                  >
+                    {settings.map((setting) => (
+                      <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                        <Typography
+                          textAlign="center"
+                          onClick={() => {
+                            kakaoLogout(setting);
+                          }}
+                        >
+                          {setting}
+                        </Typography>
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                </Box>
+              ) : (
                 <Button
-                  key={page}
-                  onClick={() => goToCategories(page)}
+                  onClick={handleLogin}
                   sx={{ my: 2, color: 'white', display: 'block' }}
                   style={{ marginRight: '30px', fontSize: '18px' }}
                 >
-                  {page}
+                  카카오 로그인
                 </Button>
-              ))}
-            </Box>
-            {token ? (
-              <Box sx={{ flexGrow: 0 }}>
-                <Tooltip title="Open settings">
-                  <IconButton
-                    onClick={handleOpenUserMenu}
-                    sx={{ p: 0 }}
-                    style={{ display: 'flex' }}
-                  >
-                    <ProfileName> {nickname}</ProfileName>
-                    <Avatar alt="Remy Sharp" src={thumbnail_image_url} />
-                  </IconButton>
-                </Tooltip>
-                <Menu
-                  sx={{ mt: '45px' }}
-                  id="menu-appbar"
-                  anchorEl={anchorElUser}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={Boolean(anchorElUser)}
-                  onClose={handleCloseUserMenu}
-                >
-                  {settings.map((setting) => (
-                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                      <Typography
-                        textAlign="center"
-                        onClick={() => {
-                          kakaoLogout(setting);
-                        }}
-                      >
-                        {setting}
-                      </Typography>
-                    </MenuItem>
-                  ))}
-                </Menu>
-              </Box>
-            ) : (
-              <Button
-                onClick={handleLogin}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-                style={{ marginRight: '30px', fontSize: '18px' }}
-              >
-                카카오 로그인
-              </Button>
-            )}
-          </MenuBox>
-        </Toolbar>
-      </Container>
-    </AppBar>
+              )}
+            </MenuBox>
+          </Toolbar>
+        </Container>
+      </AppBar>
+    </>
   );
 };
 export default Nav;
