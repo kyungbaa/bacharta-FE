@@ -19,8 +19,8 @@ import { useRecoilState } from 'recoil';
 import { KakaoProfile, KakaoToken, LoadingState } from '../../store/store';
 import Login from '../Login/Login';
 
-const pages = ['Home', 'Maps', 'OutFits'];
 const settings = ['Logout'];
+const pages = ['Home', 'Maps', 'OutFits'];
 
 const Nav = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
