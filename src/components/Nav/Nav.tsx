@@ -71,15 +71,7 @@ const Nav = () => {
   const { thumbnail_image_url, nickname }: any = profile;
 
   const kakaoLogout = (setting: string) => {
-<<<<<<< HEAD
-<<<<<<< HEAD
     setLoading(!loading);
-=======
-    // setLoading(!loading);
->>>>>>> d89ef7a (login redirect blocker fixed)
-=======
-    setLoading(!loading);
->>>>>>> 84e20d6 (loading components change)
     if (setting === 'Logout') {
       axios.get(
         `https://kauth.kakao.com/oauth/logout?client_id=${REST_API_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}`
@@ -110,7 +102,7 @@ const Nav = () => {
   return (
     <>
       <Login />
-      <AppBar position="static">
+      <AppBar position="static" style={{ background: '#3b55e6' }}>
         <Container maxWidth="xl">
           <Toolbar
             disableGutters
