@@ -103,13 +103,16 @@ const Nav = () => {
     getProfile();
   }, [token]);
 
-  let color = '#3b55e6';
-
   return (
     <>
       <Login />
+<<<<<<< HEAD
      {pageUrl.length === 1 ? (
         <AppBar position="static" style={{ background: '#3b55e6' }}>
+=======
+      {pageUrl.length === 1 ? (
+        <AppBar position="static" style={{ background: `${theme.mainColor}` }}>
+>>>>>>> f44783e (nav fixed)
           <Container maxWidth="lg">
             <Toolbar
               disableGutters
