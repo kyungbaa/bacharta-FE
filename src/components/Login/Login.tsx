@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import qs from 'qs';
 import { useRecoilState } from 'recoil';
-import { KakaoToken, LoadingState } from '../../store/store';
+import { KakaoToken } from '../../store/store';
 
 const Login = () => {
   const location = useLocation();
@@ -11,9 +11,7 @@ const Login = () => {
   const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
   const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
   const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET;
-  // const [profile, setProfile] = useRecoilState(KakaoProfile);
-  const [token, setToken] = useRecoilState(KakaoToken);
-  const [loading, setLoading] = useRecoilState(LoadingState);
+  const [, setToken] = useRecoilState(KakaoToken);
 
   const data = qs.stringify({
     grant_type: `authorization_code`,
@@ -22,8 +20,6 @@ const Login = () => {
     code: KAKAO_CODE,
     client_secret: CLIENT_SECRET,
   });
-
-  const kakaoToken = localStorage.getItem('access_token');
 
   const getKakaoToken = async () => {
     await axios

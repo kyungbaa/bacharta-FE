@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -106,13 +106,8 @@ const Nav = () => {
   return (
     <>
       <Login />
-<<<<<<< HEAD
-     {pageUrl.length === 1 ? (
-        <AppBar position="static" style={{ background: '#3b55e6' }}>
-=======
       {pageUrl.length === 1 ? (
         <AppBar position="static" style={{ background: `${theme.mainColor}` }}>
->>>>>>> f44783e (nav fixed)
           <Container maxWidth="lg">
             <Toolbar
               disableGutters
@@ -122,7 +117,7 @@ const Nav = () => {
                 borderBottom: '2px solid #8091ef',
               }}
             >
-              <Logo alt="logo" src={NavWhiteLogo} />
+              <Logo alt="logo" src={NavWhiteLogo} onClick={goToHome} />
               <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                 <IconButton
                   size="large"
@@ -253,17 +248,22 @@ const Nav = () => {
           </Container>
         </AppBar>
       ) : (
-        <AppBar position="static" style={{ background: `${theme.white}` }}>
+        <AppBar
+          position="static"
+          style={{
+            background: `${theme.white}`,
+            boxShadow: `${theme.lowModalShadow}`,
+          }}
+        >
           <Container maxWidth="lg">
             <Toolbar
               disableGutters
               style={{
                 display: 'flex',
                 justifyContent: 'space-between',
-                borderBottom: '2px solid #8091ef',
               }}
             >
-              <Logo alt="logo" src={NavLogo} />
+              <Logo alt="logo" src={NavLogo} onClick={goToHome} />
               <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                 <IconButton
                   size="large"
