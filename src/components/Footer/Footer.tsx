@@ -29,8 +29,8 @@ const TEAM_PROFILE = [
   {
     id: 0,
     name: "김인태",
-    gitURL: "ssss",
-    blogURL: "dddd",
+    gitURL: "https://github.com/dlsxody1",
+    blogURL: "https://velog.io/@carloskim",
     duty: "Main Page, backend",
     profileImage: "/images/footerImage/intae.png",
   },
@@ -55,7 +55,7 @@ const TEAM_PROFILE = [
     name: "이후경",
     gitURL: "https://github.com/kyungbaa",
     blogURL: "https://velog.io/@kyung-baa",
-    duty: "Outifits Page, Footer, Design",
+    duty: "Outifits Page, 404 Not Found Page, Footer, Design",
     profileImage: "/images/footerImage/hooo.png",
   },
 ];

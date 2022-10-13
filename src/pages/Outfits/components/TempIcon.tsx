@@ -140,7 +140,7 @@ const ImageWrap = styled.div`
   height: 4rem;
 `;
 const WeatherImage = styled.img`
-  width: 60%;
+  width: 4rem;
 `;
 
 const DateWeather = styled.h3`
@@ -157,7 +157,7 @@ const HourWeather = styled.p`
   margin-top: 4px;
   background-color: ${(props) => props.theme.grey};
   border-radius: 1em;
-  padding: 4px 10px;
+  padding: 4px 8px;
 `;
 
 const TempWeather = styled.p`
