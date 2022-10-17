@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,15 +13,16 @@ import NavWhiteLogo from '../../assets/bachartawhite.svg';
 import NavLogo from '../../assets/bacharta.svg';
 import styled from 'styled-components';
 import Tooltip from '@mui/material/Tooltip';
-import Avatar from '@mui/material/Avatar';
-import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { KakaoProfile, KakaoToken, LoadingState } from '../../store/store';
+import { KakaoToken } from '../../store/store';
 import Login from '../Login/Login';
 import theme from '../../styles/theme';
+import { kakaoLogout } from '../../api/authAPI';
+import { getProfile } from '../../api/profileAPI';
+import { useQuery } from '@tanstack/react-query';
+import { Avatar } from '@mui/material';
 
-const settings = ['Logout'];
 const pages = ['Home', 'Maps', 'OutFits'];
 
 const Nav = () => {
@@ -37,11 +38,9 @@ const Nav = () => {
   const navigate = useNavigate();
   const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
   const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
-  const LOGOUT_REDIRECT_URI = process.env.REACT_APP_LOGOUT_REDIRECT_URI;
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+  const authToken = localStorage.getItem('access_token');
   const [token, setToken] = useRecoilState(KakaoToken);
-  const [profile, setProfile] = useRecoilState(KakaoProfile);
-  const [loading, setLoading] = useRecoilState(LoadingState);
 
   const handleLogin = () => {
     window.location.href = KAKAO_AUTH_URL;
@@ -72,36 +71,15 @@ const Nav = () => {
     if (page === 'OutFits') navigate('/outfits');
   };
 
-  const { thumbnail_image_url, nickname }: any = profile;
-
-  const kakaoLogout = (setting: string) => {
-    setLoading(!loading);
-    if (setting === 'Logout') {
-      axios.get(
-        `https://kauth.kakao.com/oauth/logout?client_id=${REST_API_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}`
-      );
-      localStorage.removeItem('access_token');
-      alert('로그아웃됨');
-      navigate('/');
-      setToken('');
-    }
-    setLoading(!loading);
+  const logout = () => {
+    kakaoLogout();
+    navigate('/');
+    localStorage.removeItem('access_token');
   };
 
-  const getProfile = async () => {
-    await axios
-      .get('https://kapi.kakao.com/v2/user/me', {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => setProfile(res.data.kakao_account.profile));
-  };
-
-  useEffect(() => {
-    getProfile();
-  }, [token]);
+  const { data } = useQuery(['getProfile'], () => getProfile(authToken), {
+    enabled: !!authToken,
+  });
 
   return (
     <>
@@ -192,7 +170,7 @@ const Nav = () => {
                     </Button>
                   ))}
                 </Box>
-                {token ? (
+                {authToken ? (
                   <Box sx={{ flexGrow: 0 }}>
                     <Tooltip title="Open settings">
                       <IconButton
@@ -200,8 +178,15 @@ const Nav = () => {
                         sx={{ p: 0 }}
                         style={{ display: 'flex' }}
                       >
-                        <ProfileName> {nickname}</ProfileName>
-                        <Avatar alt="Remy Sharp" src={thumbnail_image_url} />
+                        <ProfileName>
+                          {data?.data.kakao_account.profile.nickname}
+                        </ProfileName>
+                        <Avatar
+                          alt="Remy Sharp"
+                          src={
+                            data?.data.kakao_account.profile.thumbnail_image_url
+                          }
+                        />
                       </IconButton>
                     </Tooltip>
                     <Menu
@@ -220,18 +205,16 @@ const Nav = () => {
                       open={Boolean(anchorElUser)}
                       onClose={handleCloseUserMenu}
                     >
-                      {settings.map((setting) => (
-                        <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                          <Typography
-                            textAlign="center"
-                            onClick={() => {
-                              kakaoLogout(setting);
-                            }}
-                          >
-                            {setting}
-                          </Typography>
-                        </MenuItem>
-                      ))}
+                      <MenuItem onClick={handleCloseUserMenu}>
+                        <Typography
+                          textAlign="center"
+                          onClick={() => {
+                            logout();
+                          }}
+                        >
+                          로그아웃
+                        </Typography>
+                      </MenuItem>
                     </Menu>
                   </Box>
                 ) : (
@@ -248,13 +231,7 @@ const Nav = () => {
           </Container>
         </AppBar>
       ) : (
-        <AppBar
-          position="static"
-          style={{
-            background: `${theme.white}`,
-            boxShadow: `${theme.lowModalShadow}`,
-          }}
-        >
+        <AppBar position="static" style={{ background: `${theme.white}` }}>
           <Container maxWidth="lg">
             <Toolbar
               disableGutters
@@ -338,7 +315,7 @@ const Nav = () => {
                     </Button>
                   ))}
                 </Box>
-                {token ? (
+                {authToken ? (
                   <Box sx={{ flexGrow: 0 }}>
                     <Tooltip title="Open settings">
                       <IconButton
@@ -346,8 +323,15 @@ const Nav = () => {
                         sx={{ p: 0 }}
                         style={{ display: 'flex', color: `${theme.black}` }}
                       >
-                        <ProfileName> {nickname}</ProfileName>
-                        <Avatar alt="Remy Sharp" src={thumbnail_image_url} />
+                        <ProfileName>
+                          {data?.data.kakao_account.profile.nickname}
+                        </ProfileName>
+                        <Avatar
+                          alt="Remy Sharp"
+                          src={
+                            data?.data.kakao_account.profile.thumbnail_image_url
+                          }
+                        />
                       </IconButton>
                     </Tooltip>
                     <Menu
@@ -366,18 +350,16 @@ const Nav = () => {
                       open={Boolean(anchorElUser)}
                       onClose={handleCloseUserMenu}
                     >
-                      {settings.map((setting) => (
-                        <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                          <Typography
-                            textAlign="center"
-                            onClick={() => {
-                              kakaoLogout(setting);
-                            }}
-                          >
-                            {setting}
-                          </Typography>
-                        </MenuItem>
-                      ))}
+                      <MenuItem onClick={handleCloseUserMenu}>
+                        <Typography
+                          textAlign="center"
+                          onClick={() => {
+                            logout();
+                          }}
+                        >
+                          로그아웃
+                        </Typography>
+                      </MenuItem>
                     </Menu>
                   </Box>
                 ) : (
