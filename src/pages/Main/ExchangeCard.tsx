@@ -5,12 +5,21 @@ interface ItemProps {
   price: string;
   unit: string;
 }
-const ExchangeCard = ({ nation, price, unit }: ItemProps) => {
+interface flagProps {
+  id: number;
+  name: string;
+  flag_url: JSX.Element;
+}
+const ExchangeCard = ({ unit, nation, price }: ItemProps) => {
   return (
     <ExchangeItem>
-      <ExchangeNation>{nation}</ExchangeNation>
-      <ExchangeNation>가격 : {price}</ExchangeNation>
-      <ExchangeNation>단위 : {unit}</ExchangeNation>
+      <ExchangeTitle>SALES OVERVIEW</ExchangeTitle>
+      <ExchangeInfo>국가 : {nation} </ExchangeInfo>
+      <ExchangeInfo>
+        ₩<strong>{price}</strong>
+      </ExchangeInfo>
+
+      <ExchangeInfo>통화명 : {unit} </ExchangeInfo>
     </ExchangeItem>
   );
 };
@@ -21,15 +30,34 @@ const ExchangeItem = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  width: 300px;
-  height: 300px;
-
-  border: 1px solid black;
-  box-shadow: 10px 5px 5px gray;
+  align-items: flex-start;
+  background-color: white;
+  border-radius: 10px;
+  width: calc(100% - 60px);
+  margin: 0 30px;
+  padding: 0 25px;
+  height: 200px;
+  border: none;
+  box-shadow: ${({ theme }) => theme.lowModalDeepShadow};
 `;
 
-const ExchangeNation = styled.div`
+const ExchangeTitle = styled.div`
   margin: 10px;
-  font-size: 20px;
+  font-size: 15px;
+  font-weight: bold;
+  color: ${({ theme }) => theme.mainColor};
+`;
+const ExchangeInfo = styled.div`
+  margin: 10px;
+  font-size: 18px;
+
+  strong {
+    font-weight: bold;
+    margin-right: 5px;
+  }
+`;
+
+const Image = styled.img`
+  width: 30px;
+  height: 30px;
 `;
