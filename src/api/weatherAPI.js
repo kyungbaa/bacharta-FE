@@ -1,14 +1,6 @@
-import axios from 'axios';
+import { instance } from "./api";
 
-const apiKey = process.env.REACT_APP_OPEN_WEATHER_KEY;
-
-const instance = axios.create({
-  baseURL: 'https://api.openweathermap.org/data/2.5/',
-});
-
-export const getWeather = async (lat, lng) => {
-  const response = await instance.get(
-    `weather?lat=${lat}&lon=${lng}&appid=${apiKey}`
-  );
+export const getWeather = async () => {
+  const response = await instance.get(`/location`);
   return response.data;
 };
