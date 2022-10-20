@@ -46,7 +46,7 @@ const LocationSelect = ({
           alignItems="center"
           spacing={1}
         >
-          <Alert severity="error">검색하신 지역명이 없습니다. 예 강남구</Alert>
+          <Alert severity="error">검색하신 지역명이 없습니다. 예: 강남구</Alert>
         </Stack>
       ) : null}
       <ModalFooter>
