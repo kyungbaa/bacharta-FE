@@ -2,6 +2,9 @@
 
 #### OPEN API를 활용하여 날씨별 옷차림 추천, 지역별 날씨 + 미세먼지, 일일 환율 데이터+ 코로나 추이 등 다양한 생활 정보 제공 웹 어플리케이션
 
+- 기존에 있는 날씨 사이트와 차별화를 두기 위해 "Personalized Weather Site" 구현
+- 사용자 기반으로 현재 도시, 기온의 느낌(보통, 추움, 더움) 데이터를 수집 후, 사용자 맞춤 기온별 옷차림 안내
+
 <br/>
 
 # 목차
@@ -13,12 +16,12 @@
 
 ## 팀원
 
-| 이름                                  | 역할       |
-| ------------------------------------- | ---------- |
-| [백광현](https://github.com/rmawogns) | 로그인,Nav |
-| [이후경](https://github.com/ch4md0m)  |            |
-| [김인태](https://github.com/jiye-7)   |            |
-| [박보현](https://github.com/EEOOOO)   |            |
+| 이름                                  | 역할                 |
+| ------------------------------------- | -------------------- |
+| [백광현](https://github.com/rmawogns) | 로그인,Nav           |
+| [이후경](https://github.com/ch4md0m)  |                      |
+| [김인태](https://github.com/jiye-7)   |                      |
+| [박보현](https://github.com/EEOOOO)   | 날씨 & 미세먼지 안내 |
 
 <br/>
 <br/>
@@ -76,7 +79,35 @@ npm run start
 
 #### 2. Map 페이지
 
--
+- Kakao Maps API와 OpenWeather API를 활용해 지도에 날씨와 미세먼지 데이터 표시
+
+  - Key 값을 .env 파일에 저장 후, 사용
+
+- React Query를 사용한 상태 관리
+
+  - Loading, Error 일때 해당 컴포넌트 호출
+
+- API 사용
+
+  - axios.create를 사용해 비동기 통신을 axios 모듈화해 사용
+  - process.env 사용으로 API 키 저장
+  - Async await 사용해 비동기 통신 처리
+
+- Maps 메인 페이지에 날씨와 미세먼지 두 개의 버튼 생성
+- useState 사용으로 boolean 값으로 날씨와 미세먼지 데이터를 그려줌
+
+[날씨]
+
+- data로 들어오는 키값을 구조분해할당으로 선언
+- 날씨 버튼 클릭 시, API를 호출해 switch문에 맞는 weather condition을 svg 이미지로 표시
+- 절대 온도로 받아지는 데이터를 섭씨 온도로 변환하는 로직 구현
+
+[미세먼지]
+
+- 첫 렌더링 화면에 서울의 미세먼지 데이터 호출
+- Mock data로 도시 버튼을 나열하고 클릭 시, 해당 id를
+- 각 도시를 클릭 시, 해당 stationcode와 atmosphereValue를 호출해 useState에 담고, 중복 클릭 시, 각 도시의 데이터가 객체 배열에 추가
+- 초기화 버튼 생성으로 클릭 시, 데이터가 reset 되는 함수 생성
 
 <br/>
 
