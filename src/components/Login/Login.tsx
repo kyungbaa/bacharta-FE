@@ -34,7 +34,7 @@ const Login = () => {
       retry: false,
     }
   );
-  if (query.isError) return <div>loading ...</div>;
+  if (query.isError) return <div style={{ display: 'none' }}>loading ...</div>;
 
   return <></>;
 };
