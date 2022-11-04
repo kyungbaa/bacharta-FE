@@ -14,8 +14,6 @@ import NavLogo from '../../assets/bacharta.svg';
 import styled from 'styled-components';
 import Tooltip from '@mui/material/Tooltip';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import { KakaoToken } from '../../store/store';
 import Login from '../Login/Login';
 import theme from '../../styles/theme';
 import { kakaoLogout } from '../../api/authAPI';
@@ -40,7 +38,6 @@ const Nav = () => {
   const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
   const authToken = localStorage.getItem('access_token');
-  const [token, setToken] = useRecoilState(KakaoToken);
 
   const handleLogin = () => {
     window.location.href = KAKAO_AUTH_URL;
@@ -93,8 +90,7 @@ const Nav = () => {
                 display: 'flex',
                 justifyContent: 'space-between',
                 borderBottom: '2px solid #8091ef',
-              }}
-            >
+              }}>
               <Logo alt="logo" src={NavWhiteLogo} onClick={goToHome} />
               <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                 <IconButton
@@ -103,8 +99,7 @@ const Nav = () => {
                   aria-controls="menu-appbar"
                   aria-haspopup="true"
                   onClick={handleOpenNavMenu}
-                  color="inherit"
-                >
+                  color="inherit">
                   <MenuIcon />
                 </IconButton>
                 <Menu
@@ -123,8 +118,7 @@ const Nav = () => {
                   onClose={handleCloseNavMenu}
                   sx={{
                     display: { xs: 'block', md: 'none' },
-                  }}
-                >
+                  }}>
                   {pages.map((page) => (
                     <MenuItem key={page}>
                       <Typography textAlign="center">{page}</Typography>
@@ -147,8 +141,7 @@ const Nav = () => {
                   letterSpacing: '.3rem',
                   color: 'inherit',
                   textDecoration: 'none',
-                }}
-              >
+                }}>
                 LOGO
               </Typography>
               <MenuBox>
@@ -157,15 +150,13 @@ const Nav = () => {
                     flexGrow: 1,
                     display: { xs: 'none', md: 'flex' },
                     marginRight: '50px',
-                  }}
-                >
+                  }}>
                   {pages.map((page) => (
                     <Button
                       key={page}
                       onClick={() => goToPage(page)}
                       sx={{ my: 2, color: 'white', display: 'block' }}
-                      style={{ marginRight: '30px', fontSize: '18px' }}
-                    >
+                      style={{ marginRight: '30px', fontSize: '18px' }}>
                       {page}
                     </Button>
                   ))}
@@ -176,8 +167,7 @@ const Nav = () => {
                       <IconButton
                         onClick={handleOpenUserMenu}
                         sx={{ p: 0 }}
-                        style={{ display: 'flex' }}
-                      >
+                        style={{ display: 'flex' }}>
                         <ProfileName>
                           {data?.data.kakao_account.profile.nickname}
                         </ProfileName>
@@ -203,15 +193,13 @@ const Nav = () => {
                         horizontal: 'right',
                       }}
                       open={Boolean(anchorElUser)}
-                      onClose={handleCloseUserMenu}
-                    >
+                      onClose={handleCloseUserMenu}>
                       <MenuItem onClick={handleCloseUserMenu}>
                         <Typography
                           textAlign="center"
                           onClick={() => {
                             logout();
-                          }}
-                        >
+                          }}>
                           로그아웃
                         </Typography>
                       </MenuItem>
@@ -221,8 +209,7 @@ const Nav = () => {
                   <Button
                     onClick={handleLogin}
                     sx={{ my: 2, color: 'white', display: 'block' }}
-                    style={{ marginRight: '30px', fontSize: '18px' }}
-                  >
+                    style={{ marginRight: '30px', fontSize: '18px' }}>
                     카카오 로그인
                   </Button>
                 )}
@@ -238,8 +225,7 @@ const Nav = () => {
               style={{
                 display: 'flex',
                 justifyContent: 'space-between',
-              }}
-            >
+              }}>
               <Logo alt="logo" src={NavLogo} onClick={goToHome} />
               <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                 <IconButton
@@ -248,8 +234,7 @@ const Nav = () => {
                   aria-controls="menu-appbar"
                   aria-haspopup="true"
                   onClick={handleOpenNavMenu}
-                  color="inherit"
-                >
+                  color="inherit">
                   <MenuIcon />
                 </IconButton>
                 <Menu
@@ -268,8 +253,7 @@ const Nav = () => {
                   onClose={handleCloseNavMenu}
                   sx={{
                     display: { xs: 'block', md: 'none' },
-                  }}
-                >
+                  }}>
                   {pages.map((page) => (
                     <MenuItem key={page}>
                       <Typography textAlign="center">{page}</Typography>
@@ -292,8 +276,7 @@ const Nav = () => {
                   letterSpacing: '.3rem',
                   color: 'inherit',
                   textDecoration: 'none',
-                }}
-              >
+                }}>
                 LOGO
               </Typography>
               <MenuBox>
@@ -302,15 +285,13 @@ const Nav = () => {
                     flexGrow: 1,
                     display: { xs: 'none', md: 'flex' },
                     marginRight: '50px',
-                  }}
-                >
+                  }}>
                   {pages.map((page) => (
                     <Button
                       key={page}
                       onClick={() => goToPage(page)}
                       sx={{ my: 2, color: 'black', display: 'block' }}
-                      style={{ marginRight: '30px', fontSize: '18px' }}
-                    >
+                      style={{ marginRight: '30px', fontSize: '18px' }}>
                       {page}
                     </Button>
                   ))}
@@ -321,8 +302,7 @@ const Nav = () => {
                       <IconButton
                         onClick={handleOpenUserMenu}
                         sx={{ p: 0 }}
-                        style={{ display: 'flex', color: `${theme.black}` }}
-                      >
+                        style={{ display: 'flex', color: `${theme.black}` }}>
                         <ProfileName>
                           {data?.data.kakao_account.profile.nickname}
                         </ProfileName>
@@ -348,15 +328,13 @@ const Nav = () => {
                         horizontal: 'right',
                       }}
                       open={Boolean(anchorElUser)}
-                      onClose={handleCloseUserMenu}
-                    >
+                      onClose={handleCloseUserMenu}>
                       <MenuItem onClick={handleCloseUserMenu}>
                         <Typography
                           textAlign="center"
                           onClick={() => {
                             logout();
-                          }}
-                        >
+                          }}>
                           로그아웃
                         </Typography>
                       </MenuItem>
@@ -366,8 +344,7 @@ const Nav = () => {
                   <Button
                     onClick={handleLogin}
                     sx={{ my: 2, color: 'black', display: 'block' }}
-                    style={{ marginRight: '30px', fontSize: '18px' }}
-                  >
+                    style={{ marginRight: '30px', fontSize: '18px' }}>
                     카카오 로그인
                   </Button>
                 )}

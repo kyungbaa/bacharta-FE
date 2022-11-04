@@ -1,13 +1,12 @@
-import styled from "styled-components";
-import ExchangeCard from "./ExchangeCard";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-// import { ExchageProps } from './MainTypes';
-import { ExchangeProps, ExchangeArrayProps } from "./ChartData/ChartData";
-import { useQuery } from "@tanstack/react-query";
-import Loading from "../../components/Loading/Loading";
-import axios from "axios";
+import styled from 'styled-components';
+import ExchangeCard from './ExchangeCard';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import { ExchangeProps } from './ChartData/ChartData';
+import { useQuery } from '@tanstack/react-query';
+import Loading from '../../components/Loading/Loading';
+import axios from 'axios';
 
 const ExChange = () => {
   const settings = {
@@ -21,25 +20,25 @@ const ExChange = () => {
     autoplaySpeed: 3000,
   };
   const getExchangeData = async () => {
-    const { data } = await axios.get("http://127.0.0.1:3001/exchange");
+    const { data } = await axios.get('http://127.0.0.1:3001/exchange');
     return data;
   };
 
-  const { status, data, error } = useQuery(["exchaData"], getExchangeData, {
+  const { status, data } = useQuery(['exchaData'], getExchangeData, {
     refetchOnWindowFocus: false,
     retry: 0,
     onSuccess: (data) => {
-      console.log(data, "useQuery 통신 성공");
+      console.log(data, 'useQuery 통신 성공');
     },
     onError: (e) => {
-      console.log(e, "에러가 생겼어요");
+      console.log(e, '에러가 생겼어요');
     },
   });
 
-  if (status === "loading") {
+  if (status === 'loading') {
     return <Loading />;
   }
-  if (status === "error") {
+  if (status === 'error') {
     return <Loading />;
   }
   return (
@@ -71,7 +70,7 @@ const ExchageContainer = styled.div`
 const StyleSlider = styled(Slider)`
   .slick-prev:before,
   .slick-next:before {
-    font-family: "slick";
+    font-family: 'slick';
     font-size: 30px;
     line-height: 1;
     opacity: 0.75;

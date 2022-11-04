@@ -34,6 +34,7 @@ const Login = () => {
       retry: false,
     }
   );
+  if (query.isLoading) return <div>loading ...</div>;
 
   return <></>;
 };

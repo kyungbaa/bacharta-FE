@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { CustomOverlayMap } from "react-kakao-maps-sdk";
-import clouds from "../../../../assets/weatherIcons/sun.png";
-import rain from "../../../../assets/weatherIcons/rain.png";
-import snow from "../../../../assets/weatherIcons/snow.png";
-import sun from "../../../../assets/weatherIcons/sun.png";
-import styled from "styled-components";
+import React, { useEffect, useState } from 'react';
+import { CustomOverlayMap } from 'react-kakao-maps-sdk';
+import clouds from '../../../../assets/weatherIcons/sun.png';
+import rain from '../../../../assets/weatherIcons/rain.png';
+import snow from '../../../../assets/weatherIcons/snow.png';
+import sun from '../../../../assets/weatherIcons/sun.png';
+import styled from 'styled-components';
 
 const WeatherOverlay = (props: any) => {
   const [icon, setIcon] = useState<string>();
@@ -14,29 +14,28 @@ const WeatherOverlay = (props: any) => {
   useEffect(() => {
     let weatherIcons;
     switch (weather[0].main) {
-      case "Clear":
+      case 'Clear':
         weatherIcons = sun;
         break;
-      case "Clouds":
+      case 'Clouds':
         weatherIcons = clouds;
         break;
-      case "Rain":
+      case 'Rain':
         weatherIcons = rain;
         break;
-      case "Snow":
+      case 'Snow':
         weatherIcons = snow;
         break;
       default:
         weatherIcons = sun;
     }
     setIcon(weatherIcons);
-  }, []);
+  }, [weather]);
 
   return (
     <CustomOverlayMap
       position={{ lat: coord.lat, lng: coord.lon }}
-      key={coord.lat}
-    >
+      key={coord.lat}>
       <OverlayBox>
         <WeatherImageWrapper>
           <WeatherImage src={icon} />

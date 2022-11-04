@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { Line, Doughnut } from "react-chartjs-2";
+import styled from 'styled-components';
+import { Line, Doughnut } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -11,11 +11,11 @@ import {
   Tooltip,
   Legend,
   Filler,
-} from "chart.js";
-import axios from "axios";
-import { CrimeProps, CovidProps } from "./ChartData/ChartData";
-import { useQuery } from "@tanstack/react-query";
-import Loading from "../../components/Loading/Loading";
+} from 'chart.js';
+import axios from 'axios';
+import { CrimeProps } from './ChartData/ChartData';
+import { useQuery } from '@tanstack/react-query';
+import Loading from '../../components/Loading/Loading';
 
 ChartJS.register(
   ArcElement,
@@ -31,36 +31,36 @@ ChartJS.register(
 
 const TodayChartBox = () => {
   const getCovid = async () => {
-    const reponse = await axios.get("http://127.0.0.1:3001/covid");
+    const reponse = await axios.get('http://127.0.0.1:3001/covid');
 
     return reponse.data;
   };
   const getCrime = async () => {
-    const { data } = await axios.get("http://127.0.0.1:3001/crime");
+    const { data } = await axios.get('http://127.0.0.1:3001/crime');
 
     return data;
   };
 
-  const covidData = useQuery(["covid"], getCovid, {
+  const covidData = useQuery(['covid'], getCovid, {
     refetchOnWindowFocus: false,
     retry: 0,
     onSuccess: (data) => {
-      console.log(data, "covid Data");
+      console.log(data, 'covid Data');
     },
     onError: (e) => {
-      console.log(e, "에러가 생겼어요");
+      console.log(e, '에러가 생겼어요');
     },
   });
 
-  const crimeData = useQuery(["crime"], getCrime, {
+  const crimeData = useQuery(['crime'], getCrime, {
     refetchOnWindowFocus: false,
     retry: 0,
 
     onSuccess: (data) => {
-      console.log(data, "crime Data");
+      console.log(data, 'crime Data');
     },
     onError: (e) => {
-      console.log(e, "에러가 생겼어요");
+      console.log(e, '에러가 생겼어요');
     },
   });
 
@@ -71,7 +71,7 @@ const TodayChartBox = () => {
     responsive: true,
     plugins: {
       legend: {
-        position: "top" as const,
+        position: 'top' as const,
         labels: {
           font: {
             size: 15,
@@ -80,7 +80,7 @@ const TodayChartBox = () => {
       },
       title: {
         display: true,
-        text: "성범죄자 지역별 통계 ",
+        text: '성범죄자 지역별 통계 ',
         font: {
           size: 40,
         },
@@ -90,7 +90,7 @@ const TodayChartBox = () => {
 
   const labels = crimeChartData
     ?.map((el: CrimeProps) => {
-      return el["city-name"]?._text;
+      return el['city-name']?._text;
     })
     .slice(1, 8);
 
@@ -98,22 +98,22 @@ const TodayChartBox = () => {
     labels,
     datasets: [
       {
-        label: "성범죄자 지역별 통계 ",
+        label: '성범죄자 지역별 통계 ',
         data: crimeChartData
           ?.map((el: CrimeProps) => {
-            return el["city-count"]?._text;
+            return el['city-count']?._text;
           })
           .slice(1, 8),
-        borderColor: "black",
+        borderColor: 'black',
         backgroundColor: [
-          "rgb(247, 25, 73)",
-          "rgb(217, 94, 0)",
-          "rgb(245, 188, 45)",
-          "rgb(100, 200, 78)",
-          "rgb(102, 173, 252)",
-          "rgb(96, 64, 255)",
-          "rgb(255, 206, 86)",
-          "rgb(232, 86, 255)",
+          'rgb(247, 25, 73)',
+          'rgb(217, 94, 0)',
+          'rgb(245, 188, 45)',
+          'rgb(100, 200, 78)',
+          'rgb(102, 173, 252)',
+          'rgb(96, 64, 255)',
+          'rgb(255, 206, 86)',
+          'rgb(232, 86, 255)',
         ],
         borderWidth: 1,
       },
@@ -124,7 +124,7 @@ const TodayChartBox = () => {
     plugins: {
       title: {
         display: true,
-        text: "주간 코로나 감염 발생자 추이",
+        text: '주간 코로나 감염 발생자 추이',
       },
     },
     responsive: true,
@@ -148,7 +148,7 @@ const TodayChartBox = () => {
         : date.getDate() + plusDay
     }`;
 
-  const barLabels = new Array(7).fill("").map((arr, idx) => {
+  const barLabels = new Array(7).fill('').map((arr, idx) => {
     return fullDay(-5 + idx);
   });
   const barData = {
@@ -156,7 +156,7 @@ const TodayChartBox = () => {
     datasets: [
       {
         fill: true,
-        label: "주간 코로나 환자 발생 추이",
+        label: '주간 코로나 환자 발생 추이',
         data: [
           covidChartData?.cnt1,
           covidChartData?.cnt2,
@@ -167,7 +167,7 @@ const TodayChartBox = () => {
           covidChartData?.cnt7,
           covidChartData?.cnt8,
         ],
-        backgroundColor: "rgb(99, 161, 255)",
+        backgroundColor: 'rgb(99, 161, 255)',
       },
     ],
   };
@@ -188,11 +188,11 @@ const TodayChartBox = () => {
             data={doughnutData}
             options={doughnutOptions}
             style={{
-              width: "530px",
-              height: "450px",
-              backgroundColor: "white",
-              padding: "20px",
-              boxShadow: "10px 5px 5px gray",
+              width: '530px',
+              height: '450px',
+              backgroundColor: 'white',
+              padding: '20px',
+              boxShadow: '10px 5px 5px gray',
             }}
           />
         </ChartBox>
@@ -201,11 +201,11 @@ const TodayChartBox = () => {
             data={barData}
             options={barOptions}
             style={{
-              width: "700px",
-              height: "450px",
-              backgroundColor: "white",
-              boxShadow: "10px 5px 5px gray",
-              marginRight: "10px",
+              width: '700px',
+              height: '450px',
+              backgroundColor: 'white',
+              boxShadow: '10px 5px 5px gray',
+              marginRight: '10px',
             }}
           />
         </ChartBox>

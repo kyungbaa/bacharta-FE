@@ -1,20 +1,20 @@
-import React, { useEffect } from "react";
-import styled from "styled-components";
-import OutfitsResult from "../../components/Outfits/OutfitsResult";
-import TempChart from "./components/TempChart";
-import axios from "axios";
-import TempIcon from "./components/TempIcon";
-import { useRecoilState } from "recoil";
-import { OutfitsWeatherState } from "./Data/UserOutfitsData";
-import { WeatherForcastState } from "./Data/WeatherForcastData";
-import { KakaoToken } from "../../store/store";
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
+import OutfitsResult from '../../components/Outfits/OutfitsResult';
+import TempChart from './components/TempChart';
+import axios from 'axios';
+import TempIcon from './components/TempIcon';
+import { useRecoilState } from 'recoil';
+import { OutfitsWeatherState } from './Data/UserOutfitsData';
+import { WeatherForcastState } from './Data/WeatherForcastData';
+import { KakaoToken } from '../../store/store';
 
 const Result = () => {
   const [weather] = useRecoilState(OutfitsWeatherState);
   const currentLocation = weather.coord;
   const apiKey = process.env.REACT_APP_OPEN_WEATHER_KEY;
   const [, setWeatherForcast] = useRecoilState(WeatherForcastState);
-  const userLocation = localStorage.getItem("location");
+  const userLocation = localStorage.getItem('location');
   const [token] = useRecoilState(KakaoToken);
   const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
   const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
@@ -24,7 +24,7 @@ const Result = () => {
     if (!token) {
       window.location.href = KAKAO_AUTH_URL;
     }
-  }, []);
+  });
   useEffect(() => {
     axios
       .get(
@@ -39,7 +39,7 @@ const Result = () => {
       .catch(function (error) {
         console.log(error);
       });
-  }, []);
+  });
 
   return (
     <ResultWrapper>
@@ -58,7 +58,7 @@ const Result = () => {
   );
 };
 const ResultWrapper = styled.div`
-  ${({ theme }) => theme.flexMixin("", "center")}
+  ${({ theme }) => theme.flexMixin('', 'center')}
 `;
 const ResultContents = styled.div`
   width: 1080px;

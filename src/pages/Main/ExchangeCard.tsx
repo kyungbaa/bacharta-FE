@@ -1,15 +1,11 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 interface ItemProps {
   nation: string;
   price: string;
   unit: string;
 }
-interface flagProps {
-  id: number;
-  name: string;
-  flag_url: JSX.Element;
-}
+
 const ExchangeCard = ({ unit, nation, price }: ItemProps) => {
   return (
     <ExchangeItem>
@@ -55,9 +51,4 @@ const ExchangeInfo = styled.div`
     font-weight: bold;
     margin-right: 5px;
   }
-`;
-
-const Image = styled.img`
-  width: 30px;
-  height: 30px;
 `;
