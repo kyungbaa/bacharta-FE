@@ -32,7 +32,9 @@ const Maps = () => {
         microdustsSwitch={microdustsSwitch}
       />
       {dataSwitch ? (
-        data.data?.map((weather: any) => <WeatherOverlay data={weather} />)
+        data.data?.map((weather: any, index: number) => (
+          <WeatherOverlay key={index} data={weather} />
+        ))
       ) : (
         <MicrodustsOverlay />
       )}

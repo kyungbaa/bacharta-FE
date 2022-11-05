@@ -6,7 +6,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import { ExchangeProps } from './ChartData/ChartData';
 import { useQuery } from '@tanstack/react-query';
 import Loading from '../../components/Loading/Loading';
-import axios from 'axios';
+import { getExchange } from '../../api/mainAPI';
 
 const ExChange = () => {
   const settings = {
@@ -19,12 +19,8 @@ const ExChange = () => {
     autoplay: true,
     autoplaySpeed: 3000,
   };
-  const getExchangeData = async () => {
-    const { data } = await axios.get('http://127.0.0.1:3001/exchange');
-    return data;
-  };
 
-  const { status, data } = useQuery(['exchaData'], getExchangeData, {
+  const { status, data } = useQuery(['exchaData'], getExchange, {
     refetchOnWindowFocus: false,
     retry: 0,
     onSuccess: (data) => {
