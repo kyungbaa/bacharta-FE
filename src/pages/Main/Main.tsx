@@ -1,19 +1,30 @@
-import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
-import TodayChartBox from "./TodayChartBox";
-import Finance from "../../assets/Finance graph.png";
-import Cursor from "../../assets/Cursor.png";
-import Laptop from "../../assets/Laptop.png";
-import Bar from "../../assets/Content 8.png";
-import ExChange from "./ExChange";
-import OutfitsResult from "../../components/Outfits/OutfitsResult";
+import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faChevronDown,
+  faChevronUp,
+  faCommentDots,
+} from '@fortawesome/free-solid-svg-icons';
+import TodayChartBox from './TodayChartBox';
+import Finance from '../../assets/Finance graph.png';
+import Cursor from '../../assets/Cursor.png';
+import Laptop from '../../assets/Laptop.png';
+import Bar from '../../assets/Content 8.png';
+import ExChange from './ExChange';
+import OutfitsResult from '../../components/Outfits/OutfitsResult';
+import { tokenStorage } from '../../storage/storage';
+import NoOutfit from './NoOutfit';
+import * as Scroll from 'react-scroll';
 
 const Main = () => {
   const clickDown = () => {
-    console.log("dd");
+    Scroll.animateScroll.scrollTo(1000);
   };
-  const getStorage = localStorage.getItem("location");
+
+  const clickUp = () => {
+    Scroll.animateScroll.scrollToTop();
+  };
+
   return (
     <>
       <MainContainer>
@@ -24,9 +35,9 @@ const Main = () => {
                 <BoxText>원하시는 통계를 차트로 확인하세요!</BoxText>
                 <BoxText>수치로써 확인할 수 있습니다!</BoxText>
                 <BoxText>날씨별 옷차림도 추천받아보세요!</BoxText>
-                <BoxText style={{ fontSize: "20px" }}>
+                <BoxText style={{ fontSize: '20px' }}>
                   {
-                    "여러분들이 원하는 차트가 있습니다! \n원하시는 통계를 차트로 확인하세요!"
+                    '여러분들이 원하는 차트가 있습니다! \n원하시는 통계를 차트로 확인하세요!'
                   }
                 </BoxText>
               </MainBoxTitle>
@@ -37,21 +48,24 @@ const Main = () => {
                 <BarImage src={Bar} />
               </SubImageContainer>
             </MainBoxContents>
-            <ChevronBox>
-              <FontAwesomeIcon onClick={clickDown} icon={faChevronDown} />
-            </ChevronBox>
           </MainBox>
         </MainBorder>
+        <ChevronBox>
+          <FontAwesomeIcon onClick={clickDown} icon={faChevronDown} />
+        </ChevronBox>
+
         <OutfitWrap>
           <OutfitTitle>오늘의 옷차림 추천</OutfitTitle>
-          {getStorage ? (
+          {tokenStorage.get('location') ? (
+            <>
+              <NoOutfit />
+            </>
+          ) : (
             <>
               <OutfitBox>
                 <OutfitsResult />
               </OutfitBox>
             </>
-          ) : (
-            <>옷차림 추천을 받지 않았습니다</>
           )}
         </OutfitWrap>
 
@@ -62,6 +76,14 @@ const Main = () => {
           <ExChange />
         </TodayChartContainer>
       </MainContainer>
+      <PositionContainer>
+        <UpChevron>
+          <FontAwesomeIcon onClick={clickUp} icon={faChevronUp} />
+        </UpChevron>
+        <Chatting>
+          <FontAwesomeIcon icon={faCommentDots} />
+        </Chatting>
+      </PositionContainer>
     </>
   );
 };
@@ -70,7 +92,7 @@ const MainContainer = styled.div``;
 
 const MainBorder = styled.div`
   background-color: ${(props) => props.theme.mainColor};
-  ${({ theme }) => theme.flexMixin("center", "center")}
+  ${({ theme }) => theme.flexMixin('center', 'center')}
 `;
 
 const MainBox = styled.div`
@@ -155,6 +177,7 @@ const ChevronBox = styled.div`
   justify-content: center;
   align-items: center;
   background-color: ${({ theme }) => theme.mainColor};
+  padding-bottom: 100px;
   color: white;
   height: 100px;
   font-size: 40px;
@@ -176,4 +199,41 @@ const OutfitBox = styled.div`
   background-color: ${({ theme }) => theme.sideColor};
 `;
 
+const PositionContainer = styled.div`
+  position: fixed;
+  width: 100%;
+  bottom: 50px;
+  left: 20px;
+  z-index: 1000;
+`;
+
+const UpChevron = styled.div`
+  width: 40px;
+  height: 40px;
+  font-size: 30px;
+  border: none;
+  background-color: white;
+  border-radius: 5px;
+  color: black;
+  &:hover {
+    color: ${({ theme }) => theme.mainColor};
+  }
+  ${({ theme }) => theme.flexMixin('center', 'center')};
+  box-shadow: ${({ theme }) => theme.lowModalShadow};
+`;
+
+const Chatting = styled.div`
+  width: 40px;
+  height: 40px;
+  font-size: 30px;
+  border: none;
+  background-color: white;
+  border-radius: 5px;
+  color: black;
+  &:hover {
+    color: ${({ theme }) => theme.mainColor};
+  }
+  ${({ theme }) => theme.flexMixin('center', 'center')};
+  box-shadow: ${({ theme }) => theme.lowModalShadow};
+`;
 export default Main;

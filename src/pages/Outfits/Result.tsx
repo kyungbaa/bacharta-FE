@@ -8,13 +8,14 @@ import { useRecoilState } from 'recoil';
 import { OutfitsWeatherState } from './Data/UserOutfitsData';
 import { WeatherForcastState } from './Data/WeatherForcastData';
 import { KakaoToken } from '../../store/store';
+import { tokenStorage } from '../../storage/storage';
 
 const Result = () => {
   const [weather] = useRecoilState(OutfitsWeatherState);
   const currentLocation = weather.coord;
   const apiKey = process.env.REACT_APP_OPEN_WEATHER_KEY;
   const [, setWeatherForcast] = useRecoilState(WeatherForcastState);
-  const userLocation = localStorage.getItem('location');
+  const userLocation = tokenStorage.get('location');
   const [token] = useRecoilState(KakaoToken);
   const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
   const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;

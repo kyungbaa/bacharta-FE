@@ -17,9 +17,10 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import Login from '../Login/Login';
 import theme from '../../styles/theme';
 import { kakaoLogout } from '../../api/authAPI';
-import { getProfile } from '../../api/profileAPI';
-import { useQuery } from '@tanstack/react-query';
-import { Avatar } from '@mui/material';
+// import { getProfile } from '../../api/profileAPI';
+// import { useQuery } from '@tanstack/react-query';
+// import { Avatar } from '@mui/material';
+import { tokenStorage } from '../../storage/storage';
 
 const pages = ['Home', 'Maps', 'OutFits'];
 
@@ -37,7 +38,7 @@ const Nav = () => {
   const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
   const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-  const authToken = localStorage.getItem('access_token');
+  const authToken = tokenStorage.get('access_token');
 
   const handleLogin = () => {
     window.location.href = KAKAO_AUTH_URL;
@@ -71,12 +72,12 @@ const Nav = () => {
   const logout = () => {
     kakaoLogout();
     navigate('/');
-    localStorage.removeItem('access_token');
+    tokenStorage.remove('access_token');
   };
 
-  const { data } = useQuery(['getProfile'], () => getProfile(authToken), {
-    enabled: !!authToken,
-  });
+  // const { data } = useQuery(['getProfile'], () => getProfile(authToken), {
+  //   enabled: !!authToken,
+  // });
 
   return (
     <>
@@ -121,29 +122,15 @@ const Nav = () => {
                   }}>
                   {pages.map((page) => (
                     <MenuItem key={page}>
-                      <Typography textAlign="center">{page}</Typography>
+                      <Typography
+                        textAlign="center"
+                        onClick={() => goToPage(page)}>
+                        {page}
+                      </Typography>
                     </MenuItem>
                   ))}
                 </Menu>
               </Box>
-
-              <Typography
-                variant="h5"
-                noWrap
-                component="a"
-                href=""
-                sx={{
-                  mr: 2,
-                  display: { xs: 'flex', md: 'none' },
-                  flexGrow: 1,
-                  fontFamily: 'monospace',
-                  fontWeight: 700,
-                  letterSpacing: '.3rem',
-                  color: 'inherit',
-                  textDecoration: 'none',
-                }}>
-                LOGO
-              </Typography>
               <MenuBox>
                 <Box
                   sx={{
@@ -169,14 +156,14 @@ const Nav = () => {
                         sx={{ p: 0 }}
                         style={{ display: 'flex' }}>
                         <ProfileName>
-                          {data?.data.kakao_account.profile.nickname}
+                          {/* {data?.data.kakao_account.profile.nickname} */}
                         </ProfileName>
-                        <Avatar
+                        {/* <Avatar
                           alt="Remy Sharp"
                           src={
                             data?.data.kakao_account.profile.thumbnail_image_url
                           }
-                        />
+                        /> */}
                       </IconButton>
                     </Tooltip>
                     <Menu
@@ -235,7 +222,7 @@ const Nav = () => {
                   aria-haspopup="true"
                   onClick={handleOpenNavMenu}
                   color="inherit">
-                  <MenuIcon />
+                  <MenuIcon style={{ color: 'black' }} />
                 </IconButton>
                 <Menu
                   id="menu-appbar"
@@ -256,29 +243,15 @@ const Nav = () => {
                   }}>
                   {pages.map((page) => (
                     <MenuItem key={page}>
-                      <Typography textAlign="center">{page}</Typography>
+                      <Typography
+                        textAlign="center"
+                        onClick={() => goToPage(page)}>
+                        {page}
+                      </Typography>
                     </MenuItem>
                   ))}
                 </Menu>
               </Box>
-
-              <Typography
-                variant="h5"
-                noWrap
-                component="a"
-                href=""
-                sx={{
-                  mr: 2,
-                  display: { xs: 'flex', md: 'none' },
-                  flexGrow: 1,
-                  fontFamily: 'monospace',
-                  fontWeight: 700,
-                  letterSpacing: '.3rem',
-                  color: 'inherit',
-                  textDecoration: 'none',
-                }}>
-                LOGO
-              </Typography>
               <MenuBox>
                 <Box
                   sx={{
@@ -291,7 +264,10 @@ const Nav = () => {
                       key={page}
                       onClick={() => goToPage(page)}
                       sx={{ my: 2, color: 'black', display: 'block' }}
-                      style={{ marginRight: '30px', fontSize: '18px' }}>
+                      style={{
+                        marginRight: '30px',
+                        fontSize: '18px',
+                      }}>
                       {page}
                     </Button>
                   ))}
@@ -304,14 +280,14 @@ const Nav = () => {
                         sx={{ p: 0 }}
                         style={{ display: 'flex', color: `${theme.black}` }}>
                         <ProfileName>
-                          {data?.data.kakao_account.profile.nickname}
+                          {/* {data?.data.kakao_account.profile.nickname} */}
                         </ProfileName>
-                        <Avatar
+                        {/* <Avatar
                           alt="Remy Sharp"
                           src={
                             data?.data.kakao_account.profile.thumbnail_image_url
                           }
-                        />
+                        /> */}
                       </IconButton>
                     </Tooltip>
                     <Menu
@@ -366,7 +342,7 @@ const MenuBox = styled.div`
 const ProfileName = styled.div`
   margin-right: 15px;
   font-size: 18px;
-  color: white;
+  color: ${({ theme }) => theme.black};
 `;
 
 const Logo = styled.img`

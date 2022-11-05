@@ -1,29 +1,30 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import LocationSelect from "./LocationSelect";
-import TemperatureSelect from "./TemperatureSelect";
-import axios from "axios";
-import clouds from "../../../assets/weatherIcons/clouds.png";
-import rain from "../../../assets/weatherIcons/rain.png";
-import snow from "../../../assets/weatherIcons/snow.png";
-import sun from "../../../assets/weatherIcons/sun.png";
-import mist from "../../../assets/weatherIcons/mist.png";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import LocationSelect from './LocationSelect';
+import TemperatureSelect from './TemperatureSelect';
+import axios from 'axios';
+import clouds from '../../../assets/weatherIcons/clouds.png';
+import rain from '../../../assets/weatherIcons/rain.png';
+import snow from '../../../assets/weatherIcons/snow.png';
+import sun from '../../../assets/weatherIcons/sun.png';
+import mist from '../../../assets/weatherIcons/mist.png';
 
-import { useRecoilState } from "recoil";
-import { UserSelectState, OutfitsWeatherState } from "../Data/UserOutfitsData";
-import { useNavigate } from "react-router-dom";
+import { useRecoilState } from 'recoil';
+import { UserSelectState, OutfitsWeatherState } from '../Data/UserOutfitsData';
+import { useNavigate } from 'react-router-dom';
+import { tokenStorage } from '../../../storage/storage';
 
 const OutfitsModal = () => {
   const navigate = useNavigate();
   const [isActiveModal, setIsActiveModal] = useState(false);
   const [isLocationError, setIsLocationError] = useState(false);
-  const [weatherIcons, setWeatherIcons] = useState("");
+  const [weatherIcons, setWeatherIcons] = useState('');
 
   const apiKey = process.env.REACT_APP_OPEN_WEATHER_KEY;
 
   const [userSelect, setUserSelect] = useRecoilState(UserSelectState);
   const [, setWether] = useRecoilState(OutfitsWeatherState);
-  const userLocation = localStorage.getItem("location");
+  const userLocation = tokenStorage.get('location');
   const isActiveModalStatus = () => {
     setIsActiveModal(!isActiveModal);
   };
@@ -37,15 +38,15 @@ const OutfitsModal = () => {
   };
 
   const handleChangeLocation = (event: React.ChangeEvent<HTMLInputElement>) => {
-    localStorage.setItem("location", event.target.value);
+    tokenStorage.set('location', event.target.value);
   };
 
   const controlProps = (item: string) => ({
     checked: userSelect.userTemp === item,
     onChange: handleSelectTemp,
     value: item,
-    name: "color-radio-button",
-    inputProps: { "aria-label": item },
+    name: 'color-radio-button',
+    inputProps: { 'aria-label': item },
   });
 
   useEffect(() => {
@@ -53,11 +54,11 @@ const OutfitsModal = () => {
   }, [isLocationError]);
 
   const isGoToResult = () => {
-    navigate("/outfits/restult");
+    navigate('/outfits/restult');
   };
 
   const getLocationWeather = () => {
-    if (userLocation !== "") {
+    if (userLocation !== '') {
       axios
         .get(
           `https://api.openweathermap.org/data/2.5/weather?q=${userLocation}&appid=${apiKey}&units=metric`
@@ -66,22 +67,22 @@ const OutfitsModal = () => {
           let weatherIcons;
           setWether(response.data);
           switch (response.data.weather[0].main) {
-            case "Clear":
+            case 'Clear':
               weatherIcons = sun;
               break;
-            case "Clouds":
+            case 'Clouds':
               weatherIcons = clouds;
               break;
-            case "Rain":
+            case 'Rain':
               weatherIcons = rain;
               break;
-            case "Snow":
+            case 'Snow':
               weatherIcons = snow;
               break;
-            case "Mist":
+            case 'Mist':
               weatherIcons = mist;
               break;
-            case "Haze":
+            case 'Haze':
               weatherIcons = mist;
               break;
 

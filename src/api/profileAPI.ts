@@ -7,7 +7,7 @@ const instance = axios.create({
   },
 });
 
-export const getProfile = async (token) => {
+export const getProfile = async (token: string) => {
   const response = await instance.get('/v2/user/me', {
     headers: {
       Authorization: `Bearer ${token}`,
