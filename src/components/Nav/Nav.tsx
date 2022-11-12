@@ -18,7 +18,7 @@ import theme from '../../styles/theme';
 import { kakaoLogout } from '../../api/authAPI';
 import { tokenStorage } from '../../storage/storage';
 import Login from '../Login/Login';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { KakaoProfile } from '../../store/store';
 import { Avatar } from '@mui/material';
 
@@ -32,7 +32,7 @@ const Nav = () => {
     null
   );
 
-  const profile = useRecoilValue(KakaoProfile);
+  const [profile, setProfile] = useRecoilState(KakaoProfile);
 
   const location = useLocation();
   const pageUrl = location.pathname;
@@ -77,6 +77,10 @@ const Nav = () => {
     kakaoLogout();
     navigate('/');
     tokenStorage.remove('access_token');
+    setProfile({
+      userNickname: '',
+      userProfile: '',
+    });
   };
   return (
     <>

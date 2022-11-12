@@ -7,7 +7,6 @@ import TempIcon from './components/TempIcon';
 import { useRecoilState } from 'recoil';
 import { OutfitsWeatherState } from './Data/UserOutfitsData';
 import { WeatherForcastState } from './Data/WeatherForcastData';
-import { KakaoToken } from '../../store/store';
 import { tokenStorage } from '../../storage/storage';
 
 const Result = () => {
@@ -16,13 +15,13 @@ const Result = () => {
   const apiKey = process.env.REACT_APP_OPEN_WEATHER_KEY;
   const [, setWeatherForcast] = useRecoilState(WeatherForcastState);
   const userLocation = tokenStorage.get('location');
-  const [token] = useRecoilState(KakaoToken);
+
   const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
   const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
   useEffect(() => {
-    if (!token) {
+    if (!tokenStorage.get('access_token')) {
       window.location.href = KAKAO_AUTH_URL;
     }
   });
@@ -40,7 +39,7 @@ const Result = () => {
       .catch(function (error) {
         console.log(error);
       });
-  });
+  }, []);
 
   return (
     <ResultWrapper>
