@@ -24,8 +24,6 @@ const Result = () => {
     if (!tokenStorage.get('access_token')) {
       window.location.href = KAKAO_AUTH_URL;
     }
-  });
-  useEffect(() => {
     axios
       .get(
         `https://api.openweathermap.org/data/2.5/forecast?lat=${currentLocation.lat}&lon=${currentLocation.lon}&appid=${apiKey}&units=metric`

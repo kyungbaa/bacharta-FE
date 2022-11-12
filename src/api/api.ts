@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+const BASE_URL = process.env.REACT_APP_BASE_URL;
+
 export const instance = axios.create({
-  baseURL: 'http://43.200.253.131:3001',
+  baseURL: BASE_URL,
 });
