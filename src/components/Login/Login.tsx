@@ -1,11 +1,11 @@
 // import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import qs from 'qs';
-import { getKakaoToken } from '../../api/authAPI';
-import { useQuery } from '@tanstack/react-query';
-// import { useRecoilState } from 'recoil';
-// import { KakaoToken } from '../../store/store';
-// import { tokenStorage } from '../../storage/storage';
+import { getKakaoToken, postToken } from '../../api/authAPI';
+import { tokenStorage } from '../../storage/storage';
+import { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
+import { KakaoProfile } from '../../store/store';
 
 const Login = () => {
   const location = useLocation();
@@ -13,7 +13,7 @@ const Login = () => {
   const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
   const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
   const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET;
-  // const [token, setToken] = useRecoilState(KakaoToken);
+  const [, setProfile] = useRecoilState(KakaoProfile);
 
   const postData = qs.stringify({
     grant_type: `authorization_code`,
@@ -23,23 +23,19 @@ const Login = () => {
     client_secret: CLIENT_SECRET,
   });
 
-  const query = useQuery(
-    ['getToken'],
-    () =>
-      getKakaoToken(postData).then((res) => {
-        console.log(res);
-      }),
-    {
-      enabled: !!location.search,
-      retry: false,
-    }
-  );
+  const tokenApi = async (postData: any) => {
+    const response = await getKakaoToken(postData);
+    const data = await postToken(response.access_token);
+    return data;
+  };
 
-  // const postQuery = useQuery(['postToken'], () => postServiceToken(token), {
-  //   enabled: !!token,
-  // });
+  useEffect(() => {
+    tokenApi(postData).then((res) => {
+      setProfile(res.data.kakaoUserData);
+      tokenStorage.set('access_token', res.data.serviceToken);
+    });
+  }, [KAKAO_CODE]);
 
-  if (query.isError) return <div style={{ display: 'none' }}>error...</div>;
   return <></>;
 };
 

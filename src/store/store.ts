@@ -1,15 +1,18 @@
-import { atom } from "recoil";
+import { atom } from 'recoil';
 export const KakaoToken = atom({
-  key: "KakaoToken",
-  default: "",
+  key: 'KakaoToken',
+  default: '',
 });
 
 export const KakaoProfile = atom({
-  key: "Profile",
-  default: {},
+  key: 'Profile',
+  default: {
+    userNickname: '',
+    userProfile: '',
+  },
 });
 
 export const LoadingState = atom({
-  key: "loading",
+  key: 'loading',
   default: true,
 });
