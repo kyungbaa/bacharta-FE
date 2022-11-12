@@ -1,16 +1,15 @@
 import { useEffect } from 'react';
 import styled from 'styled-components';
+import { tokenStorage } from '../../storage';
 import OutfitsModal from './components/OutfitsModal';
-import { useRecoilState } from 'recoil';
-import { KakaoToken } from '../../store/store';
+
 const Outfits = () => {
   const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
   const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-  const [token] = useRecoilState(KakaoToken);
 
   useEffect(() => {
-    if (!token) {
+    if (!tokenStorage.get('access_token')) {
       window.location.href = KAKAO_AUTH_URL;
     }
   });

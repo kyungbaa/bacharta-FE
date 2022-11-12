@@ -14,13 +14,13 @@ import NavLogo from '../../assets/bacharta.svg';
 import styled from 'styled-components';
 import Tooltip from '@mui/material/Tooltip';
 import { useNavigate, useLocation } from 'react-router-dom';
-import Login from '../Login/Login';
 import theme from '../../styles/theme';
 import { kakaoLogout } from '../../api/authAPI';
-// import { getProfile } from '../../api/profileAPI';
-// import { useQuery } from '@tanstack/react-query';
-// import { Avatar } from '@mui/material';
 import { tokenStorage } from '../../storage/storage';
+import Login from '../Login/Login';
+import { useRecoilValue } from 'recoil';
+import { KakaoProfile } from '../../store/store';
+import { Avatar } from '@mui/material';
 
 const pages = ['Home', 'Maps', 'OutFits'];
 
@@ -31,6 +31,9 @@ const Nav = () => {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
+
+  const profile = useRecoilValue(KakaoProfile);
+
   const location = useLocation();
   const pageUrl = location.pathname;
 
@@ -38,7 +41,8 @@ const Nav = () => {
   const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
   const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-  const authToken = tokenStorage.get('access_token');
+
+  const KAKAO_CODE = location.search.split('=')[1];
 
   const handleLogin = () => {
     window.location.href = KAKAO_AUTH_URL;
@@ -74,14 +78,9 @@ const Nav = () => {
     navigate('/');
     tokenStorage.remove('access_token');
   };
-
-  // const { data } = useQuery(['getProfile'], () => getProfile(authToken), {
-  //   enabled: !!authToken,
-  // });
-
   return (
     <>
-      <Login />
+      {KAKAO_CODE && <Login />}
       {pageUrl.length === 1 ? (
         <AppBar position="static" style={{ background: `${theme.mainColor}` }}>
           <Container maxWidth="lg">
@@ -148,22 +147,15 @@ const Nav = () => {
                     </Button>
                   ))}
                 </Box>
-                {authToken ? (
+                {tokenStorage.get('access_token') ? (
                   <Box sx={{ flexGrow: 0 }}>
                     <Tooltip title="Open settings">
                       <IconButton
                         onClick={handleOpenUserMenu}
                         sx={{ p: 0 }}
                         style={{ display: 'flex' }}>
-                        <ProfileName>
-                          {/* {data?.data.kakao_account.profile.nickname} */}
-                        </ProfileName>
-                        {/* <Avatar
-                          alt="Remy Sharp"
-                          src={
-                            data?.data.kakao_account.profile.thumbnail_image_url
-                          }
-                        /> */}
+                        <ProfileName>{profile?.userNickname}</ProfileName>
+                        <Avatar alt="Remy Sharp" src={profile?.userProfile} />
                       </IconButton>
                     </Tooltip>
                     <Menu
@@ -272,22 +264,15 @@ const Nav = () => {
                     </Button>
                   ))}
                 </Box>
-                {authToken ? (
+                {tokenStorage.get('access_token') ? (
                   <Box sx={{ flexGrow: 0 }}>
                     <Tooltip title="Open settings">
                       <IconButton
                         onClick={handleOpenUserMenu}
                         sx={{ p: 0 }}
                         style={{ display: 'flex', color: `${theme.black}` }}>
-                        <ProfileName>
-                          {/* {data?.data.kakao_account.profile.nickname} */}
-                        </ProfileName>
-                        {/* <Avatar
-                          alt="Remy Sharp"
-                          src={
-                            data?.data.kakao_account.profile.thumbnail_image_url
-                          }
-                        /> */}
+                        <UserName>{profile?.userNickname}</UserName>
+                        <Avatar alt="Remy Sharp" src={profile?.userProfile} />
                       </IconButton>
                     </Tooltip>
                     <Menu
@@ -342,7 +327,11 @@ const MenuBox = styled.div`
 const ProfileName = styled.div`
   margin-right: 15px;
   font-size: 18px;
-  color: ${({ theme }) => theme.black};
+  color: white;
+`;
+
+const UserName = styled(ProfileName)`
+  color: black;
 `;
 
 const Logo = styled.img`

@@ -31,12 +31,13 @@ const ExChange = () => {
     },
   });
 
-  if (status === 'loading') {
+  if (status === 'loading' || data.data.length === 0) {
     return <Loading />;
   }
   if (status === 'error') {
     return <Loading />;
   }
+
   return (
     <ExchageContainer>
       <StyleSlider {...settings}>

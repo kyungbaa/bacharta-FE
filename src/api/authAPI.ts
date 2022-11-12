@@ -11,24 +11,8 @@ const instance = axios.create({
 
 export const getKakaoToken = async (data: any) => {
   const response = await instance.post('/oauth/token', data);
-  const token = await axios.post('http://43.200.253.131:3001/user/sign', {
-    headers: {
-      authorization: response.data.access_token,
-    },
-  });
-
-  return token;
-  //user/sign
+  return response.data;
 };
-
-// export const postServiceToken = async (token: string) => {
-//   const response = await axios.post('http://43.200.253.131:3001/user/sign', {
-//     headers: {
-//       authorization: token,
-//     },
-//   });
-//   return response.data;
-// };
 
 export const kakaoLogout = async () => {
   await axios.get(
@@ -36,4 +20,18 @@ export const kakaoLogout = async () => {
   );
   tokenStorage.remove('access_token');
   alert('로그아웃됨');
+};
+
+export const postToken = async (access_token: string) => {
+  const token = await axios.post(
+    'http://43.200.253.131:3001/user/sign',
+    {},
+    {
+      headers: {
+        authorization: access_token,
+        'Content-type': 'apllication/json',
+      },
+    }
+  );
+  return token;
 };
