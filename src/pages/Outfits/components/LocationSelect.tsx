@@ -1,11 +1,12 @@
-import React from "react";
-import styled from "styled-components";
-import TextField from "@mui/material/TextField";
-import Alert from "@mui/material/Alert";
-import Stack from "@mui/material/Stack";
+import React from 'react';
+import styled from 'styled-components';
+import TextField from '@mui/material/TextField';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
+
 interface UserSelectProps {
   isActiveModalStatus: () => void;
-  getLocationWeather: () => void;
+  getLocationWeather: (userLocation: string | null) => void;
   handleChangeLocation: (event: React.ChangeEvent<HTMLInputElement>) => void;
   userLocation: string | null;
   isLocationError: boolean;
@@ -25,8 +26,7 @@ const LocationSelect = ({
       <ModalSection>
         <ModalImage
           src="/images/Outfits/mark.png"
-          alt="마커아이콘"
-        ></ModalImage>
+          alt="마커아이콘"></ModalImage>
       </ModalSection>
       <ModalSelect>
         <TextField
@@ -41,16 +41,17 @@ const LocationSelect = ({
       </ModalSelect>
       {isLocationError ? (
         <Stack
-          sx={{ width: "100%", marginTop: "16px" }}
+          sx={{ width: '100%', marginTop: '16px' }}
           justifyContent="center"
           alignItems="center"
-          spacing={1}
-        >
+          spacing={1}>
           <Alert severity="error">검색하신 지역명이 없습니다. 예: 강남구</Alert>
         </Stack>
       ) : null}
       <ModalFooter>
-        <NextButton onClick={getLocationWeather} disabled={!userLocation}>
+        <NextButton
+          onClick={() => getLocationWeather(userLocation)}
+          disabled={!userLocation}>
           다음
         </NextButton>
       </ModalFooter>
@@ -60,7 +61,7 @@ const LocationSelect = ({
 
 const Wrap = styled.div``;
 const ModalHeader = styled.div`
-  ${({ theme }) => theme.flexMixin("", "center")}
+  ${({ theme }) => theme.flexMixin('', 'center')}
 `;
 const ModalTitle = styled.h2`
   padding: 10px 0;
@@ -70,7 +71,7 @@ const ModalTitle = styled.h2`
 `;
 
 const ModalSection = styled.div`
-  ${({ theme }) => theme.flexMixin("", "center")}
+  ${({ theme }) => theme.flexMixin('', 'center')}
 `;
 const ModalImage = styled.img`
   padding-top: 10px;
@@ -78,12 +79,12 @@ const ModalImage = styled.img`
 `;
 
 const ModalSelect = styled.div`
-  ${({ theme }) => theme.flexMixin("center", "center")}
+  ${({ theme }) => theme.flexMixin('center', 'center')}
   padding-top: 16px;
 `;
 
 const ModalFooter = styled.div`
-  ${({ theme }) => theme.flexMixin("", "center")}
+  ${({ theme }) => theme.flexMixin('', 'center')}
   padding-top: 24px;
 `;
 

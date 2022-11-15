@@ -16,7 +16,7 @@ const Outfits = () => {
   return (
     <OutfitsWrapper>
       <OutfitsSection>
-        <OutfitsModal></OutfitsModal>
+        <OutfitsModal />
       </OutfitsSection>
     </OutfitsWrapper>
   );

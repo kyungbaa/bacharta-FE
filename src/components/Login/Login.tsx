@@ -34,7 +34,7 @@ const Login = () => {
       setProfile(res.data.kakaoUserData);
       tokenStorage.set('access_token', res.data.serviceToken);
     });
-  }, [KAKAO_CODE]);
+  }, [postData, setProfile]);
 
   return <></>;
 };
