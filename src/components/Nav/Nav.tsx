@@ -22,8 +22,6 @@ import { useRecoilState } from 'recoil';
 import { KakaoProfile } from '../../store/store';
 import { Avatar } from '@mui/material';
 
-const pages = ['Home', 'Maps', 'OutFits'];
-
 const Nav = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
@@ -31,6 +29,8 @@ const Nav = () => {
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
     null
   );
+
+  const pages = ['Home', 'Maps', 'OutFits'];
 
   const [profile, setProfile] = useRecoilState(KakaoProfile);
 
