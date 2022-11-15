@@ -10,7 +10,6 @@ import { tokenStorage } from '../../storage/storage';
 import { useQuery } from '@tanstack/react-query';
 import { getTodayWeather } from '../../api/weatherAPI';
 import Loading from '../../components/Loading/Loading';
-import NotFound from '../../components/NotFound/NotFound';
 
 const Result = () => {
   const [weather] = useRecoilState(OutfitsWeatherState);
@@ -27,7 +26,7 @@ const Result = () => {
     }
   });
 
-  const { isLoading, isError } = useQuery(['gettodayweather'], () => {
+  const { isLoading } = useQuery(['gettodayweather'], () => {
     getTodayWeather(currentLocation.lat, currentLocation.lon).then(function (
       response
     ) {
