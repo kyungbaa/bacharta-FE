@@ -39,7 +39,6 @@ const Result = () => {
   });
 
   if (isLoading) return <Loading />;
-  if (isError) return <NotFound />;
 
   return (
     <ResultWrapper>
