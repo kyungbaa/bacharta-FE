@@ -50,7 +50,10 @@ const LocationSelect = ({
       ) : null}
       <ModalFooter>
         <NextButton
-          onClick={() => getLocationWeather(userLocation)}
+          onClick={() => {
+            getLocationWeather(userLocation);
+            isActiveModalStatus();
+          }}
           disabled={!userLocation}>
           다음
         </NextButton>
