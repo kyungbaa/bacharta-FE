@@ -3,7 +3,7 @@ import { tokenStorage } from '../storage/storage';
 
 const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
 const LOGOUT_REDIRECT_URI = process.env.REACT_APP_LOGOUT_REDIRECT_URI;
-const BASE_URL = process.env.REACT_APP_BASE_URL;
+// const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const instance = axios.create({
   baseURL: 'https://kauth.kakao.com',
@@ -25,7 +25,7 @@ export const kakaoLogout = async () => {
 
 export const postToken = async (access_token: string) => {
   const token = await axios.post(
-    `${BASE_URL}/user/sign`,
+    `http://43.201.54.103:3001/user/sign`,
     {},
     {
       headers: {
