@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Map } from 'react-kakao-maps-sdk';
-import { getWeather } from '../../api/weatherAPI';
+import { getWeather } from '../../api/mapAPI';
 import WeatherOverlay from './components/WeatherOverlay/WeatherOverlay';
 import Buttons from './components/Buttons/Buttons';
 import MicrodustsOverlay from './components/MicrodustsOverlay/MicrodustsOverlay';

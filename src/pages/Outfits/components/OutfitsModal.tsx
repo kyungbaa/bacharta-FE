@@ -2,17 +2,20 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import LocationSelect from './LocationSelect';
 import TemperatureSelect from './TemperatureSelect';
-import axios from 'axios';
 import clouds from '../../../assets/weatherIcons/clouds.png';
 import rain from '../../../assets/weatherIcons/rain.png';
 import snow from '../../../assets/weatherIcons/snow.png';
 import sun from '../../../assets/weatherIcons/sun.png';
 import mist from '../../../assets/weatherIcons/mist.png';
-
 import { useRecoilState } from 'recoil';
 import { UserSelectState, OutfitsWeatherState } from '../Data/UserOutfitsData';
 import { useNavigate } from 'react-router-dom';
 import { tokenStorage } from '../../../storage/storage';
+import { useQuery } from '@tanstack/react-query';
+import { getLocationWeather } from '../../../api/weatherAPI';
+import Loading from '../../../components/Loading/Loading';
+
+export const userLocation = tokenStorage.get('location');
 
 const OutfitsModal = () => {
   const navigate = useNavigate();
@@ -20,11 +23,9 @@ const OutfitsModal = () => {
   const [isLocationError, setIsLocationError] = useState(false);
   const [weatherIcons, setWeatherIcons] = useState('');
 
-  const apiKey = process.env.REACT_APP_OPEN_WEATHER_KEY;
-
   const [userSelect, setUserSelect] = useRecoilState(UserSelectState);
   const [, setWether] = useRecoilState(OutfitsWeatherState);
-  const userLocation = tokenStorage.get('location');
+
   const isActiveModalStatus = () => {
     setIsActiveModal(!isActiveModal);
   };
@@ -57,68 +58,59 @@ const OutfitsModal = () => {
     navigate('/outfits/restult');
   };
 
-  const getLocationWeather = () => {
-    if (userLocation !== '') {
-      axios
-        .get(
-          `https://api.openweathermap.org/data/2.5/weather?q=${userLocation}&appid=${apiKey}&units=metric`
-        )
-        .then(function (response) {
-          let weatherIcons;
-          setWether(response.data);
-          switch (response.data.weather[0].main) {
-            case 'Clear':
-              weatherIcons = sun;
-              break;
-            case 'Clouds':
-              weatherIcons = clouds;
-              break;
-            case 'Rain':
-              weatherIcons = rain;
-              break;
-            case 'Snow':
-              weatherIcons = snow;
-              break;
-            case 'Mist':
-              weatherIcons = mist;
-              break;
-            case 'Haze':
-              weatherIcons = mist;
-              break;
+  const { isLoading } = useQuery(['getlocationweather'], () => {
+    getLocationWeather(userLocation).then((response) => {
+      let weatherIcons;
+      setWether(response.data);
+      switch (response.data.weather[0].main) {
+        case 'Clear':
+          weatherIcons = sun;
+          break;
+        case 'Clouds':
+          weatherIcons = clouds;
+          break;
+        case 'Rain':
+          weatherIcons = rain;
+          break;
+        case 'Snow':
+          weatherIcons = snow;
+          break;
+        case 'Mist':
+          weatherIcons = mist;
+          break;
+        case 'Haze':
+          weatherIcons = mist;
+          break;
 
-            default:
-              weatherIcons = sun;
-          }
-          setWeatherIcons(weatherIcons);
-          isActiveModalStatus();
-        })
-        .catch(function (error) {
-          setIsLocationError(true);
-        });
-    }
-  };
+        default:
+          weatherIcons = sun;
+      }
+      setWeatherIcons(weatherIcons);
+      isActiveModalStatus();
+    });
+  });
+
+  if (isLoading) return <Loading />;
 
   return (
-    <>
-      <ModalWrapper onSubmit={tempSubmit}>
-        {!isActiveModal ? (
-          <LocationSelect
-            userLocation={userLocation}
-            isActiveModalStatus={isActiveModalStatus}
-            handleChangeLocation={handleChangeLocation}
-            getLocationWeather={getLocationWeather}
-            isLocationError={isLocationError}
-          />
-        ) : (
-          <TemperatureSelect
-            weatherIcons={weatherIcons}
-            isActiveModalStatus={isActiveModalStatus}
-            controlProps={controlProps}
-            isGoToResult={isGoToResult}
-          />
-        )}
-      </ModalWrapper>
-    </>
+    <ModalWrapper onSubmit={tempSubmit}>
+      {!isActiveModal ? (
+        <LocationSelect
+          userLocation={userLocation}
+          isActiveModalStatus={isActiveModalStatus}
+          handleChangeLocation={handleChangeLocation}
+          getLocationWeather={getLocationWeather}
+          isLocationError={isLocationError}
+        />
+      ) : (
+        <TemperatureSelect
+          weatherIcons={weatherIcons}
+          isActiveModalStatus={isActiveModalStatus}
+          controlProps={controlProps}
+          isGoToResult={isGoToResult}
+        />
+      )}
+    </ModalWrapper>
   );
 };
 const ModalWrapper = styled.form`

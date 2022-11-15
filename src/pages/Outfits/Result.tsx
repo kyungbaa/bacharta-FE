@@ -2,20 +2,21 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import OutfitsResult from '../../components/Outfits/OutfitsResult';
 import TempChart from './components/TempChart';
-import axios from 'axios';
 import TempIcon from './components/TempIcon';
 import { useRecoilState } from 'recoil';
 import { OutfitsWeatherState } from './Data/UserOutfitsData';
 import { WeatherForcastState } from './Data/WeatherForcastData';
 import { tokenStorage } from '../../storage/storage';
+import { useQuery } from '@tanstack/react-query';
+import { getTodayWeather } from '../../api/weatherAPI';
+import Loading from '../../components/Loading/Loading';
+import NotFound from '../../components/NotFound/NotFound';
 
 const Result = () => {
   const [weather] = useRecoilState(OutfitsWeatherState);
   const currentLocation = weather.coord;
-  const apiKey = process.env.REACT_APP_OPEN_WEATHER_KEY;
   const [, setWeatherForcast] = useRecoilState(WeatherForcastState);
   const userLocation = tokenStorage.get('location');
-
   const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
   const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
@@ -24,20 +25,21 @@ const Result = () => {
     if (!tokenStorage.get('access_token')) {
       window.location.href = KAKAO_AUTH_URL;
     }
-    axios
-      .get(
-        `https://api.openweathermap.org/data/2.5/forecast?lat=${currentLocation.lat}&lon=${currentLocation.lon}&appid=${apiKey}&units=metric`
-      )
-      .then(function (response) {
-        setWeatherForcast({
-          city: response.data.city.name,
-          list: response.data.list,
-        });
-      })
-      .catch(function (error) {
-        console.log(error);
+  });
+
+  const { isLoading, isError } = useQuery(['gettodayweather'], () => {
+    getTodayWeather(currentLocation.lat, currentLocation.lon).then(function (
+      response
+    ) {
+      setWeatherForcast({
+        city: response.data.city.name,
+        list: response.data.list,
       });
-  }, []);
+    });
+  });
+
+  if (isLoading) return <Loading />;
+  if (isError) return <NotFound />;
 
   return (
     <ResultWrapper>
