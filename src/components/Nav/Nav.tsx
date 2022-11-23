@@ -1,4 +1,10 @@
 import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import NavWhiteLogo from '../../assets/bachartawhite.svg';
+import styled from 'styled-components';
+import { useRecoilState } from 'recoil';
+import { KakaoProfile } from '../../store/store';
+import NavLogo from '../../assets/bacharta.svg';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -9,17 +15,11 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
-import NavWhiteLogo from '../../assets/bachartawhite.svg';
-import NavLogo from '../../assets/bacharta.svg';
-import styled from 'styled-components';
 import Tooltip from '@mui/material/Tooltip';
-import { useNavigate, useLocation } from 'react-router-dom';
 import theme from '../../styles/theme';
 import { kakaoLogout } from '../../api/authAPI';
 import { tokenStorage } from '../../storage/storage';
 import Login from '../Login/Login';
-import { useRecoilState } from 'recoil';
-import { KakaoProfile } from '../../store/store';
 import { Avatar } from '@mui/material';
 
 const Nav = () => {
