@@ -72,12 +72,13 @@ npm run start
 
 #### 1. Main 페이지
 
-- bla bla.
-- bla bla.
+![bacharta main](https://user-images.githubusercontent.com/97820540/203570039-9494dc28-8ff4-4865-a4a4-f83e8a96e19e.gif)
 
 <br/>
 
 #### 2. Map 페이지
+
+![bachartamap](https://user-images.githubusercontent.com/97820540/203570271-c5ffc816-988e-43a1-acfd-0b0af090587a.gif)
 
 - Kakao Maps API와 OpenWeather API를 활용해 지도에 날씨와 미세먼지 데이터 표시
 
@@ -113,12 +114,13 @@ npm run start
 
 #### 3. Outfit 페이지
 
-- bla bla.
-- bla bla.
+![bachartaoutfits](https://user-images.githubusercontent.com/97820540/203570404-8a28439f-c38e-42c8-953b-31048f7374bc.gif)
 
 <br/>
 
 #### 4. Login, Nav 페이지
+
+![bachartalogin](https://user-images.githubusercontent.com/97820540/203570552-8f03da9f-f8ea-4d67-acce-eb641d939af2.gif)
 
 - Oauth를 통한 소셜로그인.
 
