@@ -9,6 +9,8 @@
 
 # 목차
 
+- [bacharta 바로가기](https://bacharta.netlify.app/)
+
 - [실행](#1-실행)
 
 <br/>
