@@ -3,22 +3,23 @@ import styled from 'styled-components';
 import OutfitsResult from '../../components/Outfits/OutfitsResult';
 import TempChart from './components/TempChart';
 import TempIcon from './components/TempIcon';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { OutfitsWeatherState } from './Data/UserOutfitsData';
 import { WeatherForcastState } from './Data/WeatherForcastData';
 import { tokenStorage } from '../../storage/storage';
 import { useQuery } from '@tanstack/react-query';
 import { getTodayWeather } from '../../api/weatherAPI';
 import Loading from '../../components/Loading/Loading';
+import { KakaoProfile } from '../../store/store';
 
 const Result = () => {
   const [weather] = useRecoilState(OutfitsWeatherState);
   const currentLocation = weather.coord;
   const [, setWeatherForcast] = useRecoilState(WeatherForcastState);
-  const userLocation = tokenStorage.get('location');
   const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
   const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+  const profile = useRecoilValue(KakaoProfile);
 
   useEffect(() => {
     if (!tokenStorage.get('access_token')) {
@@ -47,7 +48,7 @@ const Result = () => {
           <OutfitsResult />
         </OutfitsResultWrap>
         <ChartsWrap>
-          <Title>{`${userLocation}의 날씨 예보`}</Title>
+          <Title>{`${profile.userNickname}의 날씨 예보`}</Title>
           <TempIcon />
           <TempChart />
         </ChartsWrap>
