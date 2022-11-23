@@ -48,7 +48,7 @@ const Result = () => {
           <OutfitsResult />
         </OutfitsResultWrap>
         <ChartsWrap>
-          <Title>{`${profile.userNickname}의 날씨 예보`}</Title>
+          <Title>{`${profile.userNickname}님 지역의 날씨 예보`}</Title>
           <TempIcon />
           <TempChart />
         </ChartsWrap>
