@@ -57,15 +57,11 @@ const Main = () => {
         <OutfitWrap>
           <OutfitTitle>오늘의 옷차림 추천</OutfitTitle>
           {tokenStorage.get('location') ? (
-            <>
-              <NoOutfit />
-            </>
+            <OutfitBox>
+              <OutfitsResult />
+            </OutfitBox>
           ) : (
-            <>
-              <OutfitBox>
-                <OutfitsResult />
-              </OutfitBox>
-            </>
+            <NoOutfit />
           )}
         </OutfitWrap>
 
